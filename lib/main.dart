@@ -5,6 +5,7 @@ import 'package:task_dot_do/router.dart';
 import 'package:task_dot_do/ui/home_view.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await setUpLocator();
   runApp(MyApp());
 }
