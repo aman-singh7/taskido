@@ -21,14 +21,14 @@ class _BaseLandingViewState extends State<BaseLandingView> {
           onPressed: () => model.setState(NavBarItem.HOME),
           icon: Icon(
             Icons.home,
-            color: activeTab[0] ? Colors.white : Colors.black,
+            color: activeTab == 0 ? Colors.white : Colors.black,
           ),
         ),
         IconButton(
           onPressed: () => model.setState(NavBarItem.CALENDER),
           icon: Icon(
             Icons.calendar_today,
-            color: activeTab[1] ? Colors.white : Colors.black,
+            color: activeTab == 1 ? Colors.white : Colors.black,
           ),
         ),
         SizedBox(
@@ -38,14 +38,14 @@ class _BaseLandingViewState extends State<BaseLandingView> {
           onPressed: () => model.setState(NavBarItem.GROUPS),
           icon: Icon(
             Icons.people,
-            color: activeTab[2] ? Colors.white : Colors.black,
+            color: activeTab == 2 ? Colors.white : Colors.black,
           ),
         ),
         IconButton(
           onPressed: () => model.setState(NavBarItem.PROFILE),
           icon: Icon(
             Icons.person,
-            color: activeTab[3] ? Colors.white : Colors.black,
+            color: activeTab == 3 ? Colors.white : Colors.black,
           ),
         ),
       ];
@@ -81,7 +81,7 @@ class _BaseLandingViewState extends State<BaseLandingView> {
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [..._buildBottomNav(model)],
+                children: _buildBottomNav(model),
               ),
             ),
           ),
