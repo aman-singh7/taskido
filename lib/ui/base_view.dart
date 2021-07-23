@@ -11,8 +11,8 @@ class BaseView<T extends BaseViewModel> extends StatefulWidget {
     this.onModelDestroy,
   }) : super(key: key);
   final Widget Function(BuildContext context, T model, Widget? child) builder;
-  final void Function()? onModelReady;
-  final void Function()? onModelDestroy;
+  final void Function(T)? onModelReady;
+  final void Function(T)? onModelDestroy;
 
   @override
   _BaseViewState<T> createState() => _BaseViewState<T>();
@@ -24,7 +24,7 @@ class _BaseViewState<T extends BaseViewModel> extends State<BaseView<T>> {
   @override
   void initState() {
     if (widget.onModelReady != null) {
-      widget.onModelReady!();
+      widget.onModelReady!(model);
     }
     super.initState();
   }
@@ -42,7 +42,7 @@ class _BaseViewState<T extends BaseViewModel> extends State<BaseView<T>> {
   @override
   void dispose() {
     if (widget.onModelDestroy != null) {
-      widget.onModelDestroy!();
+      widget.onModelDestroy!(model);
     }
     super.dispose();
   }
