@@ -1,14 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:task_dot_do/ui/base_view.dart';
-import 'package:task_dot_do/viewmodels/home_viewmodel.dart';
+import 'package:task_dot_do/viewmodels/groups_viewmodel.dart';
 
-class HomeView extends StatelessWidget {
+class GroupsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BaseView<HomeViewModel>(
+    return BaseView<GroupsViewModel>(
       builder: (context, model, child) => Container(
         child: Center(
-          child: Text('Home Page'),
+          child: Text('Groups Page'),
         ),
       ),
     );

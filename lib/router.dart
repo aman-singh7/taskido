@@ -7,7 +7,7 @@ class TaskdotdoRouter {
         return MaterialPageRoute(
           builder: (_) => Scaffold(
             body: Center(
-              child: Text("No view defined for this route"),
+              child: Text('No view defined for this route'),
             ),
           ),
         );

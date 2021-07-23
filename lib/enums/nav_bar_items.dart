@@ -1,0 +1,1 @@
+enum NavBarItem { HOME, CALENDER, GROUPS, PROFILE }
