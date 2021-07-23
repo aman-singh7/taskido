@@ -18,19 +18,19 @@ class BaseLandingViewmodel extends BaseViewModel {
     switch (item) {
       case NavBarItem.HOME:
         _body = HomeView();
-        _activeTab =0;
+        _activeTab = 0;
         break;
       case NavBarItem.CALENDER:
         _body = CalenderView();
-        _activeTab =1;
+        _activeTab = 1;
         break;
       case NavBarItem.GROUPS:
         _body = GroupsView();
-        _activeTab =2;
+        _activeTab = 2;
         break;
       case NavBarItem.PROFILE:
         _body = ProfileView();
-        _activeTab =3;
+        _activeTab = 3;
         break;
     }
   }
@@ -44,6 +44,5 @@ class BaseLandingViewmodel extends BaseViewModel {
   void onModelReady() {
     _item = NavBarItem.HOME;
     buildBody(_item);
-    _activeTab =0;
   }
 }
