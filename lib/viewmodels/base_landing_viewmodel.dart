@@ -36,7 +36,7 @@ class BaseLandingViewmodel extends BaseViewModel {
   }
 
   void buildActiveTab(int index) {
-    List<bool> list = [false, false, false, false];
+    var list = <bool>[false, false, false, false];
     list[index] = true;
     _activeTab = list;
     notifyListeners();

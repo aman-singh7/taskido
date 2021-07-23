@@ -20,18 +20,19 @@ class LocalStorageService {
   }
 
   void _saveToDisk<T>(String key, T value) {
-    if (value is bool)
+    if (value is bool) {
       _preferences.setBool(key, value);
-    else if (value is double)
+    } else if (value is double) {
       _preferences.setDouble(key, value);
-    else if (value is int)
+    } else if (value is int) {
       _preferences.setInt(key, value);
-    else if (value is String)
+    } else if (value is String) {
       _preferences.setString(key, value);
-    else if (value is List<String>)
+    } else if (value is List<String>) {
       _preferences.setStringList(key, value);
-    else
+    } else {
       debugPrint('passed value is none of the specified type');
+    }
   }
 
   bool get isLoggedIn => _getFromDisk(authStateKey) ?? false;
