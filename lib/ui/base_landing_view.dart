@@ -34,7 +34,7 @@ class _BaseLandingViewState extends State<BaseLandingView> {
           ),
         ),
         SizedBox(
-          width: 40,
+          width: h * 30,
         ),
         IconButton(
           onPressed: () => model.setState(NavBarItem.GROUPS),
@@ -58,6 +58,8 @@ class _BaseLandingViewState extends State<BaseLandingView> {
       onModelReady: (model) => model.onModelReady(),
       builder: (context, model, child) => SafeArea(
         child: Scaffold(
+          extendBody: true,
+          resizeToAvoidBottomInset: false,
           body: model.body,
           floatingActionButton: FloatingActionButton(
             onPressed: () {
