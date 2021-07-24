@@ -49,10 +49,10 @@ class LoginViewModel extends BaseViewModel {
   }
 
   String? passwordValidator(String? password) {
-    if (password == null) {
-      return "Password field can't be empty";
+    if (password == null || password.isEmpty) {
+      return 'Password field is required';
     } else if (password.length < 6) {
-      return 'Password length should be more than 6';
+      return "Password can't be smaller than 6 characters";
     } else {
       return null;
     }
