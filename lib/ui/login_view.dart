@@ -19,6 +19,7 @@ class _LoginViewState extends State<LoginView> {
   Widget build(BuildContext context) {
     return BaseView<LoginViewModel>(
       onModelReady: (model) => model.onModelReady(),
+      onModelDestroy: (model) => model.onModelDestroy(),
       builder: (context, model, child) => Scaffold(
         resizeToAvoidBottomInset: false,
         body: SafeArea(
@@ -57,13 +58,57 @@ class _LoginViewState extends State<LoginView> {
             _buildEmailTextField(model),
             SizedBox(height: 20),
             _buildPasswordTextField(model),
-            SizedBox(height: 10),
             _buildForgetPasswordButton(model),
             _buildKeepSignedInCheckBox(),
             _buildCreateAccountButton(model),
-            SizedBox(height: 20),
+            SizedBox(height: 10),
             _buildLoginButton(model, _keepSignedIn),
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildEmailTextField(LoginViewModel model) {
+    return CustomTextField(
+      model.emailController,
+      'Email',
+      'Enter your email',
+      Icons.email,
+      validator: model.emailValidator,
+    );
+  }
+
+  Widget _buildPasswordTextField(LoginViewModel model) {
+    return CustomTextField(
+      model.passwordController,
+      'Password',
+      'Enter your password',
+      Icons.lock,
+      isHidden: _isHidden,
+      validator: model.passwordValidator,
+      suffix: IconButton(
+        icon: _isHidden ? Icon(Icons.visibility) : Icon(Icons.visibility_off),
+        onPressed: () {
+          setState(() {
+            _isHidden = !_isHidden;
+          });
+        },
+      ),
+    );
+  }
+
+  Widget _buildForgetPasswordButton(LoginViewModel model) {
+    return Align(
+      alignment: Alignment.centerRight,
+      child: TextButton(
+        onPressed: model.forgetPassword,
+        style: ButtonStyle(
+          overlayColor: MaterialStateProperty.all(Colors.transparent),
+        ),
+        child: Text(
+          'Forgot Password?',
+          style: AppTheme.bodyText1.copyWith(color: AppTheme.primary),
         ),
       ),
     );
@@ -81,6 +126,22 @@ class _LoginViewState extends State<LoginView> {
         });
       },
       controlAffinity: ListTileControlAffinity.leading,
+    );
+  }
+
+  Widget _buildCreateAccountButton(LoginViewModel model) {
+    return Align(
+      alignment: Alignment.center,
+      child: TextButton(
+        onPressed: model.createAccount,
+        style: ButtonStyle(
+          overlayColor: MaterialStateProperty.all(Colors.transparent),
+        ),
+        child: Text(
+          "Don't have an account? Create one",
+          style: AppTheme.bodyText1.copyWith(color: AppTheme.primary),
+        ),
+      ),
     );
   }
 
@@ -106,66 +167,6 @@ class _LoginViewState extends State<LoginView> {
           ),
         ),
       ],
-    );
-  }
-
-  Widget _buildPasswordTextField(LoginViewModel model) {
-    return CustomTextField(
-      model.passwordController,
-      'Password',
-      'Enter your password',
-      Icons.lock,
-      isHidden: _isHidden,
-      validator: (value) => model.passwordValidator(value),
-      suffix: IconButton(
-        icon: _isHidden ? Icon(Icons.visibility) : Icon(Icons.visibility_off),
-        onPressed: () {
-          setState(() {
-            _isHidden = !_isHidden;
-          });
-        },
-      ),
-    );
-  }
-
-  Widget _buildEmailTextField(LoginViewModel model) {
-    return CustomTextField(
-      model.emailController,
-      'Email',
-      'Enter your email',
-      Icons.email,
-    );
-  }
-
-  Widget _buildForgetPasswordButton(LoginViewModel model) {
-    return Align(
-      alignment: Alignment.centerRight,
-      child: TextButton(
-        onPressed: () => model.forgetPassword(),
-        style: ButtonStyle(
-          overlayColor: MaterialStateProperty.all(Colors.transparent),
-        ),
-        child: Text(
-          'Forgot Password?',
-          style: AppTheme.bodyText1.copyWith(color: AppTheme.primary),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildCreateAccountButton(LoginViewModel model) {
-    return Align(
-      alignment: Alignment.center,
-      child: TextButton(
-        onPressed: () => model.createAccount(),
-        style: ButtonStyle(
-          overlayColor: MaterialStateProperty.all(Colors.transparent),
-        ),
-        child: Text(
-          "Don't have an account? Create one",
-          style: AppTheme.bodyText1.copyWith(color: AppTheme.primary),
-        ),
-      ),
     );
   }
 }
