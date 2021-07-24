@@ -4,9 +4,13 @@ import 'package:task_dot_do/app_theme.dart';
 import 'package:task_dot_do/ui/base_view.dart';
 import 'package:task_dot_do/viewmodels/home_viewmodel.dart';
 
-class HomeView extends StatelessWidget {
+class HomeView extends StatefulWidget {
   static const String id = 'home_view';
-  final searchController = TextEditingController();
+  @override
+  _HomeViewState createState() => _HomeViewState();
+}
+
+class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     var h = MediaQuery.of(context).size.height / 360;
