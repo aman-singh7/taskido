@@ -38,21 +38,21 @@ class LoginViewModel extends BaseViewModel {
     Get.offAllNamed(BaseLandingView.id);
   }
 
-  String? passwordValidator(String? password) {
-    if (password == null || password.isEmpty) {
-      return 'Password field is required';
-    } else if (password.length < 6) {
-      return "Password can't be smaller than 6 characters";
-    } else {
-      return null;
-    }
-  }
-
   String? emailValidator(String? email) {
     if (email == null || email.isEmpty) {
       return 'Email field is required';
     } else if (!GetUtils.isEmail(email.trim())) {
       return 'Enter a valid email';
+    } else {
+      return null;
+    }
+  }
+
+  String? passwordValidator(String? password) {
+    if (password == null) {
+      return "Password field can't be empty";
+    } else if (password.length < 6) {
+      return 'Password length should be more than 6';
     } else {
       return null;
     }
