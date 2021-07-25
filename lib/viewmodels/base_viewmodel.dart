@@ -6,6 +6,8 @@ import 'package:task_dot_do/locator.dart';
 import 'package:task_dot_do/models/task_model.dart';
 import 'package:task_dot_do/services/local_storage_service.dart';
 
+import 'package:flutter/cupertino.dart';
+
 class BaseViewModel extends ChangeNotifier {
   final _localStorage = locator<LocalStorageService>();
 

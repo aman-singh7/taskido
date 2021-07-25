@@ -41,6 +41,8 @@ dependencies:
   table_calendar: ^3.0.1
   sliding_up_panel: ^2.0.0+1
   flutter_linkify: ^5.0.2
+  firebase_core: ^1.4.0
+  firebase_auth: ^3.0.1
 
 dev_dependencies:
   flutter_test:
