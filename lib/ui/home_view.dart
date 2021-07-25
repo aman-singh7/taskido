@@ -9,14 +9,17 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var h = MediaQuery.of(context).size.height / 360;
+    var w = MediaQuery.of(context).size.width / 360;
 
     List<Widget> _buildDateTile(dynamic model) {
-      var _date, result = <Widget>[], dates;
+      var _date, result = <Widget>[], dates, activeTab;
       dates = model.dates;
-      for (_date in dates) {
+      activeTab = model.activeDayTab;
+      for (var index = 0; index < dates.length; index++) {
+        _date = dates[index];
         result.add(
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () => model.changeTab(index),
             style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all<Color>(Colors.white60),
               elevation: MaterialStateProperty.all<double>(2.0),
@@ -35,10 +38,20 @@ class HomeView extends StatelessWidget {
               child: Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 12.0),
-                    child: Text(
-                      _date.date.toString(),
-                      style: TextStyle(color: Colors.black),
+                    padding: const EdgeInsets.only(bottom: 10.0),
+                    child: Container(
+                      padding: const EdgeInsets.all(6.0),
+                      decoration: BoxDecoration(
+                        color: activeTab == index ? Colors.lightBlue : null,
+                        shape: BoxShape.circle,
+                      ),
+                      child: Text(
+                        _date.date.toString(),
+                        style: TextStyle(
+                          color:
+                              activeTab == index ? Colors.white : Colors.black,
+                        ),
+                      ),
                     ),
                   ),
                   Text(
@@ -54,10 +67,60 @@ class HomeView extends StatelessWidget {
       return result;
     }
 
+    List<Widget> _buildTasks(dynamic model) {
+      var result = <Widget>[], task, tasks = model.tasks;
+      for (var index = 0; index < tasks.length; index++) {
+        task = tasks[index];
+        result.add(
+          Container(
+            width: w * 340,
+            padding: const EdgeInsets.only(bottom: 8.0),
+            child: Card(
+              elevation: 10,
+              shadowColor: Colors.lightBlue[100],
+              child: CheckboxListTile(
+                title: Text(
+                  task.title,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                subtitle: Text(task.from),
+                value: task.isCompleted,
+                controlAffinity: ListTileControlAffinity.leading,
+                onChanged: (val) => model.isTaskCompleted(val, index),
+                secondary: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    if (task.notifyMe) ...[
+                      IconButton(
+                        onPressed: () {},
+                        icon: Icon(
+                          Icons.notifications,
+                          //color: Colors.yellow,
+                        ),
+                      ),
+                    ],
+                    IconButton(
+                      onPressed: () => model.deleteTask(index),
+                      icon: Icon(
+                        Icons.delete,
+                        color: Colors.red,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        );
+      }
+      return result;
+    }
+
     return BaseView<HomeViewModel>(
       onModelReady: (model) => model.onModelReady(),
       builder: (context, model, child) => Container(
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Padding(
@@ -83,6 +146,7 @@ class HomeView extends StatelessWidget {
                     labelText: '\t' * 6 + 'Search Tasks',
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12.0),
+                      borderSide: BorderSide.none,
                     ),
                     fillColor: Colors.grey[100],
                     filled: true,
@@ -96,7 +160,29 @@ class HomeView extends StatelessWidget {
             ),
             Stack(
               children: [
-                SvgPicture.asset('assets/images/background_image.svg'),
+                Container(
+                  width: w * 360,
+                  child: SvgPicture.asset(
+                    'assets/images/background_image.svg',
+                    fit: BoxFit.contain,
+                  ),
+                ),
+                Positioned(
+                  top: h * 20,
+                  left: w * 10,
+                  child: Container(
+                    width: w * 360,
+                    child: ListView(
+                      //physics: NeverScrollableScrollPhysics(),
+                      physics: const BouncingScrollPhysics(
+                        parent: AlwaysScrollableScrollPhysics(),
+                      ),
+                      scrollDirection: Axis.vertical,
+                      shrinkWrap: true,
+                      children: _buildTasks(model),
+                    ),
+                  ),
+                ),
               ],
             ),
           ],

@@ -1,11 +1,16 @@
 import 'package:intl/intl.dart';
 import 'package:task_dot_do/models/date_model.dart';
+import 'package:task_dot_do/models/task_model.dart';
 import 'package:task_dot_do/viewmodels/base_viewmodel.dart';
 
 class HomeViewModel extends BaseViewModel {
   late List<DayDate> _dates;
+  late List<Task> _tasks;
+  late int _activeDayTab;
 
   List<DayDate> get dates => _dates;
+  List<Task> get tasks => _tasks;
+  int get activeDayTab => _activeDayTab;
 
   void buildDates(DateTime date) {
     var prev, next, tempdate, tempday;
@@ -54,10 +59,47 @@ class HomeViewModel extends BaseViewModel {
       tempday = DateFormat('EEEE').format(tempdate);
       var length = _dates.length;
       _dates.insert(
-        length - 1,
+        length,
         DayDate(date: tempdate.day, month: tempdate.month, day: tempday),
       );
     }
+  }
+
+  void buildTask() {
+    var date = DateTime.now();
+    var time = DateFormat.jm().format(date);
+    _tasks = [];
+    _tasks.addAll(
+      [
+        Task(
+          title: 'Complete Maths Assignment',
+          notifyMe: true,
+          isCompleted: true,
+          from: time,
+        ),
+        Task(
+          title: 'Walking',
+          notifyMe: false,
+          isCompleted: false,
+          from: time,
+        ),
+      ],
+    );
+  }
+
+  void isTaskCompleted(bool val, int index) {
+    _tasks[index].isCompleted = val;
+    notifyListeners();
+  }
+
+  void deleteTask(int index) {
+    _tasks.removeAt(index);
+    notifyListeners();
+  }
+
+  void changeTab(int index) {
+    _activeDayTab = index;
+    notifyListeners();
   }
 
   void onModelReady() {
@@ -66,5 +108,7 @@ class HomeViewModel extends BaseViewModel {
     _dates = [];
     _dates.add(DayDate(date: date.day, month: date.month, day: day));
     buildDates(date);
+    _activeDayTab = 0;
+    buildTask();
   }
 }

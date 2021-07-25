@@ -54,6 +54,11 @@ class _BaseLandingViewState extends State<BaseLandingView> {
       return result;
     }
 
+    Widget getIcon(int tab) {
+      if (tab == 3) return Icon(Icons.settings);
+      return Icon(Icons.add);
+    }
+
     return BaseView<BaseLandingViewmodel>(
       onModelReady: (model) => model.onModelReady(),
       builder: (context, model, child) => SafeArea(
@@ -72,7 +77,7 @@ class _BaseLandingViewState extends State<BaseLandingView> {
                 ),
               );
             },
-            child: Icon(Icons.add),
+            child: getIcon(model.activeTab),
           ),
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerDocked,
