@@ -5,6 +5,8 @@ import 'package:task_dot_do/viewmodels/base_landing_viewmodel.dart';
 import 'package:flutter/material.dart';
 
 class BaseLandingView extends StatefulWidget {
+  static const String id = 'base_landing_view';
+
   @override
   _BaseLandingViewState createState() => _BaseLandingViewState();
 }
