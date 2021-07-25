@@ -35,7 +35,7 @@ class LoginViewModel extends BaseViewModel {
 
   void forgetPassword() async {
     final _dialogService = locator<DialogService>();
-    var email = await _dialogService.showForgetPasswordDialog();
+    await _dialogService.showForgetPasswordDialog();
     // if (email == null) {
     //   print('null');
     // } else {
@@ -53,7 +53,7 @@ class LoginViewModel extends BaseViewModel {
     debugPrint('Password : ${_passwordController.text}');
     debugPrint('keepSignedIn : $keepSignedIn');
     try {
-      var user = await _firebaseAuthService.signIn(
+      await _firebaseAuthService.signIn(
         _emailController.text.trim(),
         _passwordController.text,
       );

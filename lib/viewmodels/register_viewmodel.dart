@@ -78,7 +78,7 @@ class RegisterViewModel extends BaseViewModel {
 
   void register(keepSignedIn) async {
     try {
-      var user = await _firebaseAuthService.signUp(
+      await _firebaseAuthService.signUp(
         _nameController.text,
         _emailController.text.trim(),
         _passwordController.text,
