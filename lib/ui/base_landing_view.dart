@@ -86,6 +86,8 @@ class _BaseLandingViewState extends State<BaseLandingView> {
             notchMargin: 6,
             shape: CircularNotchedRectangle(),
             child: Container(
+              margin: const EdgeInsets.all(0),
+              padding: const EdgeInsets.all(0),
               height: 30 * h,
               child: Row(
                 mainAxisSize: MainAxisSize.max,

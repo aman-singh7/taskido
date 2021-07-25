@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:task_dot_do/app_theme.dart';
 import 'package:task_dot_do/ui/base_view.dart';
 import 'package:task_dot_do/viewmodels/home_viewmodel.dart';
 
@@ -10,6 +11,7 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     var h = MediaQuery.of(context).size.height / 360;
     var w = MediaQuery.of(context).size.width / 360;
+    var theme = Theme.of(context).textTheme;
 
     List<Widget> _buildDateTile(dynamic model) {
       var _date, result = <Widget>[], dates, activeTab;
@@ -20,17 +22,13 @@ class HomeView extends StatelessWidget {
         result.add(
           ElevatedButton(
             onPressed: () => model.changeTab(index),
-            style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all<Color>(Colors.white60),
-              elevation: MaterialStateProperty.all<double>(2.0),
-              overlayColor: MaterialStateProperty.all<Color>(Colors.lightBlue),
-              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                RoundedRectangleBorder(
-                  side: BorderSide(
-                    color: Colors.white,
-                  ),
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
+            style: ElevatedButton.styleFrom(
+              primary: Colors.white60,
+              elevation: 2.0,
+              textStyle: AppTheme.button.copyWith(fontSize: 14),
+              shape: RoundedRectangleBorder(
+                side: BorderSide(color: Colors.white),
+                borderRadius: BorderRadius.circular(8.0),
               ),
             ),
             child: Padding(
@@ -73,7 +71,7 @@ class HomeView extends StatelessWidget {
         task = tasks[index];
         result.add(
           Container(
-            width: w * 340,
+            width: w * 300,
             padding: const EdgeInsets.only(bottom: 8.0),
             child: Card(
               elevation: 10,

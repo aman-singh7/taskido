@@ -83,6 +83,54 @@ class HomeViewModel extends BaseViewModel {
           isCompleted: false,
           from: time,
         ),
+        Task(
+          title: 'Complete Maths Assignment',
+          notifyMe: true,
+          isCompleted: true,
+          from: time,
+        ),
+        Task(
+          title: 'Walking',
+          notifyMe: false,
+          isCompleted: false,
+          from: time,
+        ),
+        Task(
+          title: 'Complete Maths Assignment',
+          notifyMe: true,
+          isCompleted: true,
+          from: time,
+        ),
+        Task(
+          title: 'Walking',
+          notifyMe: false,
+          isCompleted: false,
+          from: time,
+        ),
+        Task(
+          title: 'Complete Maths Assignment',
+          notifyMe: true,
+          isCompleted: true,
+          from: time,
+        ),
+        Task(
+          title: 'Walking',
+          notifyMe: false,
+          isCompleted: false,
+          from: time,
+        ),
+        Task(
+          title: 'Complete Maths Assignment',
+          notifyMe: true,
+          isCompleted: true,
+          from: time,
+        ),
+        Task(
+          title: 'Walking',
+          notifyMe: false,
+          isCompleted: false,
+          from: time,
+        ),
       ],
     );
   }
