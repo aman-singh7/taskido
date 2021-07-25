@@ -34,6 +34,8 @@ dependencies:
   shared_preferences: ^2.0.6
   intl: ^0.17.0
   flutter_svg: ^0.22.0
+  firebase_core: ^1.4.0
+  firebase_auth: ^3.0.1
 
 dev_dependencies:
   flutter_test:

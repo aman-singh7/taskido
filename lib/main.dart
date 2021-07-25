@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:task_dot_do/app_theme.dart';
@@ -7,6 +8,7 @@ import 'package:task_dot_do/ui/startup_view.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   await setUpLocator();
   runApp(MyApp());
 }
