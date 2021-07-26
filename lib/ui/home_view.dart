@@ -11,7 +11,6 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     var h = MediaQuery.of(context).size.height / 360;
     var w = MediaQuery.of(context).size.width / 360;
-    var theme = Theme.of(context).textTheme;
 
     List<Widget> _buildDateTile(dynamic model) {
       var _date, result = <Widget>[], dates, activeTab;
@@ -71,7 +70,7 @@ class HomeView extends StatelessWidget {
         task = tasks[index];
         result.add(
           Container(
-            width: w * 300,
+            width: w * 180,
             padding: const EdgeInsets.only(bottom: 8.0),
             child: Card(
               elevation: 10,

@@ -7,12 +7,15 @@ class CustomTextField extends StatefulWidget {
   final IconData _prefix;
   final String? Function(String?)? _validator;
   final IconButton? _suffix;
+  final int? _maxlines;
   final bool _isHidden;
   CustomTextField(this._controller, this._label, this._hint, this._prefix,
       {IconButton? suffix,
       bool isHidden = false,
+      int maxlines = 1,
       String? Function(String?)? validator})
       : _suffix = suffix,
+        _maxlines = maxlines,
         _isHidden = isHidden,
         _validator = validator;
 
@@ -27,6 +30,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
       obscureText: widget._isHidden,
       controller: widget._controller,
       validator: widget._validator,
+      maxLines: widget._maxlines,
       style: TextStyle(fontSize: 18.0),
       decoration: InputDecoration(
           filled: true,

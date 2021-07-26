@@ -1,5 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:task_dot_do/services/local_storage_service.dart';
+import 'package:task_dot_do/viewmodels/add_task_viewmodel.dart';
 import 'package:task_dot_do/viewmodels/base_landing_viewmodel.dart';
 import 'package:task_dot_do/viewmodels/calender_viewmodel.dart';
 import 'package:task_dot_do/viewmodels/groups_viewmodel.dart';
@@ -21,5 +22,6 @@ Future<void> setUpLocator() async {
   locator.registerFactory<ProfileViewModel>(() => ProfileViewModel());
   locator.registerFactory<CalenderViewModel>(() => CalenderViewModel());
   locator.registerFactory<GroupsViewModel>(() => GroupsViewModel());
+  locator.registerFactory<AddTaskViewModel>(() => AddTaskViewModel());
   return;
 }

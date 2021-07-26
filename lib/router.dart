@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:task_dot_do/ui/base_landing_view.dart';
 import 'package:task_dot_do/ui/login_view.dart';
+import 'package:task_dot_do/ui/settings_view.dart';
 
 class TaskdotdoRouter {
   static Route generateRoute(RouteSettings settings) {
@@ -9,6 +10,8 @@ class TaskdotdoRouter {
         return MaterialPageRoute(builder: (_) => BaseLandingView());
       case LoginView.id:
         return MaterialPageRoute(builder: (_) => LoginView());
+      case SettingView.id:
+        return MaterialPageRoute(builder: (_) => SettingView());
       default:
         return MaterialPageRoute(
           builder: (_) => Scaffold(
