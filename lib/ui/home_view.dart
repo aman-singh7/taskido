@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:task_dot_do/app_theme.dart';
 import 'package:task_dot_do/ui/base_view.dart';
 import 'package:task_dot_do/viewmodels/home_viewmodel.dart';
@@ -70,8 +69,11 @@ class HomeView extends StatelessWidget {
         task = tasks[index];
         result.add(
           Container(
-            width: w * 180,
-            padding: const EdgeInsets.only(bottom: 8.0),
+            padding: const EdgeInsets.only(
+              bottom: 8.0,
+              left: 10,
+              right: 10,
+            ),
             child: Card(
               elevation: 10,
               shadowColor: Colors.lightBlue[100],
@@ -116,14 +118,20 @@ class HomeView extends StatelessWidget {
     return BaseView<HomeViewModel>(
       onModelReady: (model) => model.onModelReady(),
       builder: (context, model, child) => Container(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.start,
+        width: w * 360,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/images/Group5.jpg'),
+            alignment: Alignment.bottomCenter,
+            fit: BoxFit.fitWidth,
+          ),
+        ),
+        child: ListView(
           children: [
             Padding(
               padding: const EdgeInsets.only(
                 top: 25.0,
-                left: 20.0,
+                left: 30.0,
               ),
               child: Text(
                 'Home',
@@ -155,33 +163,10 @@ class HomeView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: _buildDateTile(model),
             ),
-            Stack(
-              children: [
-                Container(
-                  width: w * 360,
-                  child: SvgPicture.asset(
-                    'assets/images/background_image.svg',
-                    fit: BoxFit.contain,
-                  ),
-                ),
-                Positioned(
-                  top: h * 20,
-                  left: w * 10,
-                  child: Container(
-                    width: w * 360,
-                    child: ListView(
-                      //physics: NeverScrollableScrollPhysics(),
-                      physics: const BouncingScrollPhysics(
-                        parent: AlwaysScrollableScrollPhysics(),
-                      ),
-                      scrollDirection: Axis.vertical,
-                      shrinkWrap: true,
-                      children: _buildTasks(model),
-                    ),
-                  ),
-                ),
-              ],
+            SizedBox(
+              height: h * 10,
             ),
+            ..._buildTasks(model),
           ],
         ),
       ),
