@@ -13,12 +13,14 @@ GetIt locator = GetIt.instance;
 
 Future<void> setUpLocator() async {
   var localStorage = await LocalStorageService.getInstance();
+  var homeView = HomeViewModel();
   locator.registerSingleton<LocalStorageService>(localStorage);
+  locator.registerSingleton<HomeViewModel>(homeView);
 
   locator.registerFactory<BaseLandingViewmodel>(() => BaseLandingViewmodel());
   locator.registerFactory<StartUpViewModel>(() => StartUpViewModel());
   locator.registerFactory<LoginViewModel>(() => LoginViewModel());
-  locator.registerFactory<HomeViewModel>(() => HomeViewModel());
+  //locator.registerFactory<HomeViewModel>(() => HomeViewModel());
   locator.registerFactory<ProfileViewModel>(() => ProfileViewModel());
   locator.registerFactory<CalenderViewModel>(() => CalenderViewModel());
   locator.registerFactory<GroupsViewModel>(() => GroupsViewModel());

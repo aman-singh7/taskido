@@ -87,6 +87,11 @@ class HomeViewModel extends BaseViewModel {
     );
   }
 
+  void addTask(Task task) {
+    _tasks.add(task);
+    notifyListeners();
+  }
+
   void isTaskCompleted(bool val, int index) {
     _tasks[index].isCompleted = val;
     notifyListeners();

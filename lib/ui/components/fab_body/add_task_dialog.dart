@@ -1,15 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:task_dot_do/app_theme.dart';
+import 'package:task_dot_do/locator.dart';
+import 'package:task_dot_do/models/task_model.dart';
 import 'package:task_dot_do/ui/base_view.dart';
 import 'package:task_dot_do/ui/components/custom_text_field.dart';
 import 'package:task_dot_do/viewmodels/add_task_viewmodel.dart';
+import 'package:task_dot_do/viewmodels/home_viewmodel.dart';
 
 class AddTaksDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var h = MediaQuery.of(context).size.height;
     var w = MediaQuery.of(context).size.width;
+    final _key = GlobalKey<FormState>();
+    final homemodel = locator<HomeViewModel>();
+
+    String? validateTitle(String? val) {
+      if (val == null || val.isEmpty) {
+        return 'Required Field';
+      }
+      return null;
+    }
 
     void pickDate(AddTaskViewModel model) async {
       var date = await showDatePicker(
@@ -59,15 +71,19 @@ class AddTaksDialog extends StatelessWidget {
               thickness: 2,
               color: Colors.grey,
             ),
-            Container(
-              padding: const EdgeInsets.all(10.0),
-              height: h / 10,
-              width: w / 4,
-              child: CustomTextField(
-                model.titleController,
-                'Title',
-                'Title of Task',
-                Icons.title,
+            Form(
+              key: _key,
+              child: Container(
+                padding: const EdgeInsets.all(12.0),
+                height: h / 9.5,
+                width: w / 4,
+                child: CustomTextField(
+                  model.titleController,
+                  'Title',
+                  'Title of Task',
+                  Icons.title,
+                  validator: validateTitle,
+                ),
               ),
             ),
             Container(
@@ -107,7 +123,19 @@ class AddTaksDialog extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               height: h / 13,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  if (_key.currentState!.validate()) {
+                    Navigator.of(context).pop();
+                    var task = Task(
+                      title: model.titleController.text.trim(),
+                      notifyMe: model.notifyMe,
+                      isCompleted: false,
+                      from: DateFormat.jm().format(model.dateTime),
+                      description: model.descriptionController.text.trim(),
+                    );
+                    homemodel.addTask(task);
+                  }
+                },
                 child: Text('Add Task'),
               ),
             ),
