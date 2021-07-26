@@ -1,5 +1,7 @@
+import 'package:get/get.dart';
 import 'package:task_dot_do/enums/nav_bar_items.dart';
 import 'package:task_dot_do/ui/base_view.dart';
+import 'package:task_dot_do/ui/settings_view.dart';
 import 'package:task_dot_do/viewmodels/base_landing_viewmodel.dart';
 
 import 'package:flutter/material.dart';
@@ -15,6 +17,38 @@ class _BaseLandingViewState extends State<BaseLandingView> {
   @override
   Widget build(BuildContext context) {
     var h = MediaQuery.of(context).size.height / 360;
+
+    VoidCallback _fabOnPressed(dynamic model) {
+      var function;
+      switch (model.activeTab) {
+        case 0:
+        case 1:
+          function = () {
+            showDialog(
+              context: context,
+              builder: (context) {
+                return Dialog(
+                  child: model.fabBody,
+                );
+              },
+            );
+          };
+          break;
+        case 2:
+          function = () {
+            showModalBottomSheet(
+              context: context,
+              builder: (context) {
+                return model.fabBody;
+              },
+            );
+          };
+          break;
+        case 3:
+          function = () => Get.toNamed(SettingView.id);
+      }
+      return function;
+    }
 
     List<Widget> _buildBottomNav(var model) {
       var activeTab = model.activeTab;
@@ -34,7 +68,7 @@ class _BaseLandingViewState extends State<BaseLandingView> {
           ),
         ),
         SizedBox(
-          width: 40,
+          width: h * 30,
         ),
         IconButton(
           onPressed: () => model.setState(NavBarItem.GROUPS),
@@ -54,23 +88,21 @@ class _BaseLandingViewState extends State<BaseLandingView> {
       return result;
     }
 
+    Widget getIcon(int tab) {
+      if (tab == 3) return Icon(Icons.settings);
+      return Icon(Icons.add);
+    }
+
     return BaseView<BaseLandingViewmodel>(
       onModelReady: (model) => model.onModelReady(),
       builder: (context, model, child) => SafeArea(
         child: Scaffold(
+          extendBody: true,
+          resizeToAvoidBottomInset: false,
           body: model.body,
           floatingActionButton: FloatingActionButton(
-            onPressed: () {
-              showModalBottomSheet(
-                context: context,
-                builder: (context) => Container(
-                  child: Center(
-                    child: Text('Bottom Sheet to add Task'),
-                  ),
-                ),
-              );
-            },
-            child: Icon(Icons.add),
+            onPressed: _fabOnPressed(model),
+            child: getIcon(model.activeTab),
           ),
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerDocked,
@@ -79,6 +111,8 @@ class _BaseLandingViewState extends State<BaseLandingView> {
             notchMargin: 6,
             shape: CircularNotchedRectangle(),
             child: Container(
+              margin: const EdgeInsets.all(0),
+              padding: const EdgeInsets.all(0),
               height: 30 * h,
               child: Row(
                 mainAxisSize: MainAxisSize.max,
