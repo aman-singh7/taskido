@@ -5,6 +5,7 @@ import 'package:task_dot_do/ui/base_view.dart';
 import 'package:task_dot_do/viewmodels/home_viewmodel.dart';
 
 class HomeView extends StatelessWidget {
+  static const String id = 'home_view';
   final searchController = TextEditingController();
   @override
   Widget build(BuildContext context) {

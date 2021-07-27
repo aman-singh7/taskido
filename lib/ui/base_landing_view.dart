@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:task_dot_do/app_theme.dart';
 import 'package:task_dot_do/enums/nav_bar_items.dart';
 import 'package:task_dot_do/ui/base_view.dart';
 import 'package:task_dot_do/ui/settings_view.dart';
@@ -102,6 +103,7 @@ class _BaseLandingViewState extends State<BaseLandingView> {
           body: model.body,
           floatingActionButton: FloatingActionButton(
             onPressed: _fabOnPressed(model),
+            backgroundColor: AppTheme.primary,
             child: getIcon(model.activeTab),
           ),
           floatingActionButtonLocation:
