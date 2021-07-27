@@ -1,9 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:task_dot_do/constants.dart';
 import 'package:task_dot_do/locator.dart';
 
 class FirebaseAuthService {
   final FirebaseAuth _firebaseAuth = locator<FirebaseAuth>();
+  //final FirebaseFirestore _firebaseFirestore = locator<FirebaseFirestore>();
 
   // Sign In with email and password
   Future<UserCredential> signIn(String email, String password) async {
@@ -27,7 +29,7 @@ class FirebaseAuthService {
         email: email,
         password: password,
       );
-      //User user = _usercredential.user;
+      // User user = _usercredential.user;
       // await _firebaseFirestore
       //     .collection('Users')
       //     .doc(user.email)
