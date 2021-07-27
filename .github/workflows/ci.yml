@@ -4,7 +4,8 @@ name: CI
 
 on: [push, pull_request]
 
-env: FIREBASE_SECRET : ${{ secrets.FIREBASE_SECRET }}
+env: 
+  FIREBASE_SECRET : ${{ secrets.FIREBASE_SECRET }}
 
 jobs:
   # This workflow contains a single job called "build"
