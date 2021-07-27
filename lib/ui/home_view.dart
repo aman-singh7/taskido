@@ -76,7 +76,7 @@ class HomeView extends StatelessWidget {
               right: 10,
             ),
             child: Card(
-              elevation: 10,
+              elevation: 4,
               shadowColor: Colors.lightBlue[100],
               child: CheckboxListTile(
                 title: Text(

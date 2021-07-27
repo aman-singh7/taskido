@@ -10,13 +10,31 @@ class ProfileView extends StatelessWidget {
     var h = MediaQuery.of(context).size.height / 360;
     var w = MediaQuery.of(context).size.width / 360;
     return BaseView<ProfileViewModel>(
-      builder: (context, model, child) => Column(
+      builder: (context, model, child) => ListView(
+        physics: NeverScrollableScrollPhysics(),
         children: [
           Stack(
+            fit: StackFit.passthrough,
             children: [
+              Container(
+                margin: const EdgeInsets.all(0),
+                padding: const EdgeInsets.all(0),
+                height: h * 450,
+                width: w * 360,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage(
+                      'assets/images/Group5.jpg',
+                    ),
+                    fit: BoxFit.contain,
+                  ),
+                ),
+              ),
               ClipPath(
                 clipper: ProfileClipper(),
                 child: Container(
+                  margin: const EdgeInsets.all(0),
+                  padding: const EdgeInsets.all(0),
                   height: h * 180,
                   width: w * 360,
                   decoration: BoxDecoration(
@@ -28,9 +46,6 @@ class ProfileView extends StatelessWidget {
                     ),
                   ),
                 ),
-              ),
-              Container(
-                color: Color.fromRGBO(255, 255, 255, 0.19),
               ),
               Positioned(
                 top: h * 50,
@@ -59,7 +74,7 @@ class ProfileView extends StatelessWidget {
                 ),
               ),
               Positioned(
-                bottom: -h * 4,
+                top: h * 120,
                 left: w * 25,
                 child: Material(
                   shape: CircleBorder(),
@@ -68,6 +83,37 @@ class ProfileView extends StatelessWidget {
                   shadowColor: Colors.black54,
                   clipBehavior: Clip.antiAlias,
                   child: SvgPicture.asset('assets/images/profile_icon.svg'),
+                ),
+              ),
+              Positioned(
+                top: h * 220,
+                child: Container(
+                  width: w * 360,
+                  child: ListView(
+                    shrinkWrap: true,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 18.0, right: 18.0),
+                        child: Card(
+                          elevation: 3,
+                          child: ListTile(
+                            leading: Icon(Icons.cast_for_education),
+                            title: Text('20115096'),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 18.0, right: 18.0),
+                        child: Card(
+                          elevation: 3,
+                          child: ListTile(
+                            leading: Icon(Icons.phone),
+                            title: Text('9820115096'),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],
