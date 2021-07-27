@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:task_dot_do/validators.dart';
 import 'package:task_dot_do/viewmodels/base_viewmodel.dart';
 
 class AddTaskViewModel extends BaseViewModel {
@@ -11,6 +12,7 @@ class AddTaskViewModel extends BaseViewModel {
   TextEditingController get titleController => _titleController;
   TextEditingController get descriptionController => _descriptionController;
   DateTime get dateTime => _dateTime;
+  String? Function(String?) get titleValidator => Validator.validateTitle;
 
   void onChanged(bool val) {
     notifyMe = val;

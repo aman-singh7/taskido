@@ -1,8 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
 import 'package:task_dot_do/services/dialog_service.dart';
 import 'package:task_dot_do/services/firebase_auth_service.dart';
 import 'package:task_dot_do/services/local_storage_service.dart';
+import 'package:task_dot_do/services/profile_service.dart';
 import 'package:task_dot_do/viewmodels/add_task_viewmodel.dart';
 import 'package:task_dot_do/viewmodels/base_landing_viewmodel.dart';
 import 'package:task_dot_do/viewmodels/calender_viewmodel.dart';
@@ -22,8 +24,12 @@ Future<void> setUpLocator() async {
   locator.registerSingleton<FirebaseAuth>(_firebaseAuth);
   var _firebaseAuthService = FirebaseAuthService();
   locator.registerSingleton<FirebaseAuthService>(_firebaseAuthService);
+  var _firebaseFirestore = FirebaseFirestore.instance;
+  locator.registerSingleton<FirebaseFirestore>(_firebaseFirestore);
   var homeView = HomeViewModel();
   locator.registerSingleton<HomeViewModel>(homeView);
+  var profileService = ProfileService();
+  locator.registerSingleton<ProfileService>(profileService);
 
   locator.registerFactory<DialogService>(() => DialogService());
   locator.registerFactory<BaseLandingViewmodel>(() => BaseLandingViewmodel());

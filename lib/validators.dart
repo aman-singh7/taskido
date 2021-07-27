@@ -43,4 +43,11 @@ class Validator {
       return null;
     }
   }
+
+  static String? validateTitle(String? val) {
+    if (val == null || val.isEmpty) {
+      return 'Required Field';
+    }
+    return null;
+  }
 }

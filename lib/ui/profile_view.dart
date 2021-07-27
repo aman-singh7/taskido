@@ -10,6 +10,7 @@ class ProfileView extends StatelessWidget {
     var h = MediaQuery.of(context).size.height / 360;
     var w = MediaQuery.of(context).size.width / 360;
     return BaseView<ProfileViewModel>(
+      onModelReady: (model) => model.onModelReady(),
       builder: (context, model, child) => ListView(
         physics: NeverScrollableScrollPhysics(),
         children: [
@@ -56,7 +57,7 @@ class ProfileView extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(bottom: 10.0),
                       child: Text(
-                        'Anand ',
+                        model.person.name,
                         style: TextStyle(
                           color: Color.fromRGBO(255, 255, 255, 1),
                           fontSize: 35,
@@ -64,7 +65,7 @@ class ProfileView extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      'anand_k@cs.iitr.ac.in',
+                      model.person.email,
                       style: TextStyle(
                         color: Color.fromRGBO(255, 255, 255, 1),
                         fontSize: 16,
@@ -98,7 +99,7 @@ class ProfileView extends StatelessWidget {
                           elevation: 3,
                           child: ListTile(
                             leading: Icon(Icons.cast_for_education),
-                            title: Text('20115096'),
+                            title: Text(model.person.enrollment),
                           ),
                         ),
                       ),
@@ -108,7 +109,7 @@ class ProfileView extends StatelessWidget {
                           elevation: 3,
                           child: ListTile(
                             leading: Icon(Icons.phone),
-                            title: Text('9820115096'),
+                            title: Text(model.person.phone),
                           ),
                         ),
                       ),

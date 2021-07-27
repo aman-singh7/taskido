@@ -16,13 +16,6 @@ class AddTaksDialog extends StatelessWidget {
     final _key = GlobalKey<FormState>();
     final homemodel = locator<HomeViewModel>();
 
-    String? validateTitle(String? val) {
-      if (val == null || val.isEmpty) {
-        return 'Required Field';
-      }
-      return null;
-    }
-
     void pickDate(AddTaskViewModel model) async {
       var date = await showDatePicker(
         context: context,
@@ -82,7 +75,7 @@ class AddTaksDialog extends StatelessWidget {
                   'Title',
                   'Title of Task',
                   Icons.title,
-                  validator: validateTitle,
+                  validator: model.titleValidator,
                 ),
               ),
             ),
