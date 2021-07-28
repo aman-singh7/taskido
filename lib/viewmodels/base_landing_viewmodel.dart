@@ -13,10 +13,17 @@ class BaseLandingViewmodel extends BaseViewModel {
   late Widget _body;
   late Widget _fabBody;
   late int _activeTab;
+  bool _isVisible = true;
 
   Widget get body => _body;
   int get activeTab => _activeTab;
   Widget get fabBody => _fabBody;
+  bool get isVisible => _isVisible;
+
+  set isVisible(bool isVisible) {
+    _isVisible = isVisible;
+    notifyListeners();
+  }
 
   void buildBody(NavBarItem item) {
     switch (item) {
