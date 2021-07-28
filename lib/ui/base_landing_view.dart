@@ -4,7 +4,6 @@ import 'package:task_dot_do/enums/nav_bar_items.dart';
 import 'package:task_dot_do/ui/base_view.dart';
 import 'package:task_dot_do/ui/settings_view.dart';
 import 'package:task_dot_do/viewmodels/base_landing_viewmodel.dart';
-
 import 'package:flutter/material.dart';
 
 class BaseLandingView extends StatefulWidget {
@@ -101,27 +100,36 @@ class _BaseLandingViewState extends State<BaseLandingView> {
           extendBody: true,
           resizeToAvoidBottomInset: false,
           body: model.body,
-          floatingActionButton: FloatingActionButton(
-            onPressed: _fabOnPressed(model),
-            backgroundColor: AppTheme.primary,
-            child: getIcon(model.activeTab),
-          ),
+          floatingActionButton: model.isVisible
+              ? FloatingActionButton(
+                  backgroundColor: AppTheme.primary,
+                  onPressed: _fabOnPressed(model),
+                  child: getIcon(model.activeTab),
+                )
+              : null,
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerDocked,
-          bottomNavigationBar: BottomAppBar(
-            color: Colors.blue[100],
-            notchMargin: 6,
-            shape: CircularNotchedRectangle(),
-            child: Container(
-              margin: const EdgeInsets.all(0),
-              padding: const EdgeInsets.all(0),
-              height: 30 * h,
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: _buildBottomNav(model),
-              ),
-            ),
+          bottomNavigationBar: AnimatedContainer(
+            duration: Duration(milliseconds: 400),
+            height: model.isVisible ? 30 * h : 0,
+            child: model.isVisible
+                ? BottomAppBar(
+                    color: Colors.blue[100],
+                    notchMargin: 6,
+                    shape: CircularNotchedRectangle(),
+                    child: Container(
+                      margin: const EdgeInsets.all(0),
+                      padding: const EdgeInsets.all(0),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: _buildBottomNav(model),
+                      ),
+                    ),
+                  )
+                : Container(
+                    width: MediaQuery.of(context).size.width,
+                  ),
           ),
         ),
       ),

@@ -12,3 +12,13 @@ const passwordResetErrorCodes = <String, String>{
   'auth/invalid-email': 'Enter a valid email',
   'auth/user-not-found': 'User not found',
 };
+
+const Map<int, String> weekDays = {
+  1: 'Mon',
+  2: 'Tue',
+  3: 'Wed',
+  4: 'Thu',
+  5: 'Fri',
+  6: 'Sat',
+  7: 'Sun',
+};
