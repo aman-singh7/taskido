@@ -8,8 +8,11 @@ class GroupFunctionBottomSheet extends StatelessWidget {
     var h = MediaQuery.of(context).size.height;
     return BaseView<GroupsViewModel>(
       builder: (context, model, child) => Container(
-        height: h / 2,
-        child: Text('Bottom Sheet for Group Functionality'),
+        height: h / 3,
+        child: ListView(
+          shrinkWrap: true,
+          children: [],
+        ),
       ),
     );
   }

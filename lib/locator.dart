@@ -10,6 +10,7 @@ import 'package:task_dot_do/viewmodels/base_landing_viewmodel.dart';
 import 'package:task_dot_do/viewmodels/calender_viewmodel.dart';
 import 'package:task_dot_do/viewmodels/groups_viewmodel.dart';
 import 'package:task_dot_do/viewmodels/home_viewmodel.dart';
+import 'package:task_dot_do/viewmodels/particular_group_viewmodel.dart';
 import 'package:task_dot_do/viewmodels/profile_viewmodel.dart';
 import 'package:task_dot_do/viewmodels/login_viewmodel.dart';
 import 'package:task_dot_do/viewmodels/register_viewmodel.dart';
@@ -43,5 +44,7 @@ Future<void> setUpLocator() async {
   locator.registerFactory<CalenderViewModel>(() => CalenderViewModel());
   locator.registerFactory<GroupsViewModel>(() => GroupsViewModel());
   locator.registerFactory<AddTaskViewModel>(() => AddTaskViewModel());
+  locator.registerFactory<ParticularGroupViewModel>(
+      () => ParticularGroupViewModel());
   return;
 }
