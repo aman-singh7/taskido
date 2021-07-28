@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:task_dot_do/app_theme.dart';
 import 'package:task_dot_do/ui/base_view.dart';
 import 'package:task_dot_do/viewmodels/profile_viewmodel.dart';
 
@@ -84,6 +85,26 @@ class ProfileView extends StatelessWidget {
                   shadowColor: Colors.black54,
                   clipBehavior: Clip.antiAlias,
                   child: SvgPicture.asset('assets/images/profile_icon.svg'),
+                ),
+              ),
+              Positioned(
+                top: h * 100,
+                right: w * 25,
+                child: Container(
+                  height: h * 25,
+                  width: h * 25,
+                  padding: const EdgeInsets.all(0),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: AppTheme.primary,
+                  ),
+                  child: MaterialButton(
+                    onPressed: model.logout,
+                    child: Icon(
+                      Icons.exit_to_app,
+                      color: Colors.white,
+                    ),
+                  ),
                 ),
               ),
               Positioned(

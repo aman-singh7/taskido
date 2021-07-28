@@ -20,23 +20,26 @@ class _LoginViewState extends State<LoginView> {
     return BaseView<LoginViewModel>(
       onModelReady: (model) => model.onModelReady(),
       onModelDestroy: (model) => model.onModelDestroy(),
-      builder: (context, model, child) => Scaffold(
-        resizeToAvoidBottomInset: false,
-        body: SafeArea(
-          child: Stack(
-            children: [
-              Align(
-                alignment: Alignment.topRight,
-                child: Image.asset('assets/images/top-right-loginPage.png'),
-              ),
-              _buildLoginForm(model),
-              Align(
-                alignment: Alignment.bottomLeft,
-                child: Image.asset(
-                  'assets/images/bottom-left-loginPage.png',
+      builder: (context, model, child) => GestureDetector(
+        onTap: () => FocusScope.of(context).unfocus(),
+        child: Scaffold(
+          resizeToAvoidBottomInset: false,
+          body: SafeArea(
+            child: Stack(
+              children: [
+                Align(
+                  alignment: Alignment.topRight,
+                  child: Image.asset('assets/images/top-right-loginPage.png'),
                 ),
-              ),
-            ],
+                _buildLoginForm(model),
+                Align(
+                  alignment: Alignment.bottomLeft,
+                  child: Image.asset(
+                    'assets/images/bottom-left-loginPage.png',
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
