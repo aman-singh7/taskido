@@ -41,4 +41,7 @@ class LocalStorageService {
   bool get isFirstLogin => _getFromDisk(firstLoginKey) ?? false;
   set isFirstLogin(bool isFirstLogin) =>
       _saveToDisk(firstLoginKey, isFirstLogin);
+
+  String get displayName => _getFromDisk('displayName') ?? '';
+  set displayName(String name) => _saveToDisk('displayName', name);
 }

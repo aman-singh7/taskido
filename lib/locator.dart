@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
 import 'package:task_dot_do/services/dialog_service.dart';
 import 'package:task_dot_do/services/firebase_auth_service.dart';
+import 'package:task_dot_do/services/group_service.dart';
 import 'package:task_dot_do/services/local_storage_service.dart';
 import 'package:task_dot_do/services/profile_service.dart';
 import 'package:task_dot_do/viewmodels/add_task_viewmodel.dart';
@@ -31,8 +32,12 @@ Future<void> setUpLocator() async {
   locator.registerSingleton<FirebaseFirestore>(_firebaseFirestore);
   locator.registerSingleton<HomeViewModel>(homeView);
   locator.registerSingleton<BaseLandingViewmodel>(baseLandingView);
+  var groupService = GroupService();
+  locator.registerSingleton<GroupService>(groupService);
   var profileService = ProfileService();
   locator.registerSingleton<ProfileService>(profileService);
+  var groupViewModel = GroupsViewModel();
+  locator.registerSingleton<GroupsViewModel>(groupViewModel);
 
   locator.registerFactory<DialogService>(() => DialogService());
   //locator.registerFactory<BaseLandingViewmodel>(() => BaseLandingViewmodel());
@@ -42,7 +47,7 @@ Future<void> setUpLocator() async {
   //locator.registerFactory<HomeViewModel>(() => HomeViewModel());
   locator.registerFactory<ProfileViewModel>(() => ProfileViewModel());
   locator.registerFactory<CalenderViewModel>(() => CalenderViewModel());
-  locator.registerFactory<GroupsViewModel>(() => GroupsViewModel());
+  //locator.registerFactory<GroupsViewModel>(() => GroupsViewModel());
   locator.registerFactory<AddTaskViewModel>(() => AddTaskViewModel());
   locator.registerFactory<ParticularGroupViewModel>(
       () => ParticularGroupViewModel());

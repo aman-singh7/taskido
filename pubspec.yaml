@@ -40,6 +40,7 @@ dependencies:
   flutter_calendar_carousel: ^2.0.1
   table_calendar: ^3.0.1
   sliding_up_panel: ^2.0.0+1
+  flutter_linkify: ^5.0.2
 
 dev_dependencies:
   flutter_test:

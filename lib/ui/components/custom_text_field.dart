@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 class CustomTextField extends StatefulWidget {
   final TextEditingController _controller;
   final String _label;
-  final String _hint;
-  final IconData _prefix;
+  final String? _hint;
+  final IconData? _prefix;
   final String? Function(String?)? _validator;
   final IconButton? _suffix;
   final int? _maxlines;
@@ -45,8 +45,9 @@ class _CustomTextFieldState extends State<CustomTextField> {
               borderRadius: BorderRadius.all(Radius.circular(10.0)),
               borderSide: BorderSide(color: Colors.blue)),
           border: OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(10.0)),
-              borderSide: BorderSide(color: Colors.grey)),
+            borderRadius: BorderRadius.all(Radius.circular(10.0)),
+            borderSide: BorderSide(color: Colors.grey),
+          ),
           prefixIcon: Icon(widget._prefix),
           suffixIcon: widget._suffix),
     );

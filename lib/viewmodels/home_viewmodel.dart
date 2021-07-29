@@ -27,7 +27,7 @@ class HomeViewModel extends BaseViewModel {
         prev = 2;
         next = 3;
         break;
-      case 'Thrushday':
+      case 'Thursday':
         prev = 3;
         next = 2;
         break;

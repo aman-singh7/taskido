@@ -58,48 +58,52 @@ class GroupsView extends StatelessWidget {
               fit: BoxFit.contain,
             ),
           ),
-          child: ListView(
-            shrinkWrap: true,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(
-                  top: 20,
-                  left: 20,
-                ),
-                child: Text(
-                  'Groups',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              Container(
-                height: h / 11,
-                padding: const EdgeInsets.only(
-                  left: 25,
-                  right: 25,
-                  top: 22,
-                ),
-                child: TextField(
-                  controller: model.searchController,
-                  decoration: InputDecoration(
-                    labelText: '\t\t\tSearch',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
-                      borderSide: BorderSide.none,
+          child: model.isLoading
+              ? Center(
+                  child: CircularProgressIndicator(),
+                )
+              : ListView(
+                  shrinkWrap: true,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        top: 20,
+                        left: 20,
+                      ),
+                      child: Text(
+                        'Groups',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ),
-                    filled: true,
-                    fillColor: Colors.grey[100],
-                  ),
+                    Container(
+                      height: h / 11,
+                      padding: const EdgeInsets.only(
+                        left: 25,
+                        right: 25,
+                        top: 22,
+                      ),
+                      child: TextField(
+                        controller: model.searchController,
+                        decoration: InputDecoration(
+                          labelText: '\t\t\tSearch',
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
+                            borderSide: BorderSide.none,
+                          ),
+                          filled: true,
+                          fillColor: Colors.grey[100],
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: h / 18,
+                    ),
+                    ...buildGroupTile(model.groups)
+                  ],
                 ),
-              ),
-              SizedBox(
-                height: h / 18,
-              ),
-              ...buildGroupTile(model.groups)
-            ],
-          ),
         ),
       ),
     );
