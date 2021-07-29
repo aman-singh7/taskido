@@ -72,12 +72,14 @@ class HomeViewModel extends BaseViewModel {
     _tasks.addAll(
       [
         Task(
+          id: '',
           title: 'Complete Maths Assignment',
           notifyMe: true,
           isCompleted: true,
           from: time,
         ),
         Task(
+          id: '',
           title: 'Walking',
           notifyMe: false,
           isCompleted: false,

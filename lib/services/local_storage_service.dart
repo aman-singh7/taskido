@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:task_dot_do/constants.dart';
 
 class LocalStorageService {
   static late LocalStorageService _instance;
@@ -44,4 +45,6 @@ class LocalStorageService {
 
   String get displayName => _getFromDisk('displayName') ?? '';
   set displayName(String name) => _saveToDisk('displayName', name);
+  String get taskMap => _getFromDisk(taskMapKey);
+  set taskMap(String taskMapjson) => _saveToDisk(taskMapKey, taskMapjson);
 }

@@ -13,6 +13,10 @@ const passwordResetErrorCodes = <String, String>{
   'auth/user-not-found': 'User not found',
 };
 
+const String taskKey = 'task';
+const String userKey = 'user';
+const String taskMapKey = 'taskMap';
+
 const Map<int, String> weekDays = {
   1: 'Mon',
   2: 'Tue',
