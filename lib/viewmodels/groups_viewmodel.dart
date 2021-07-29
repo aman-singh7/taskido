@@ -25,6 +25,7 @@ class GroupsViewModel extends BaseViewModel {
 
   void groupOption(String option, String input) async {
     Get.back();
+    if (input == '') return;
     switch (option) {
       case 'Create':
         var result = await groupService.createGroup(input);
