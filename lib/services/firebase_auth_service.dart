@@ -5,7 +5,7 @@ import 'package:task_dot_do/locator.dart';
 
 class FirebaseAuthService {
   final FirebaseAuth _firebaseAuth = locator<FirebaseAuth>();
-  //final FirebaseFirestore _firebaseFirestore = locator<FirebaseFirestore>();
+  final FirebaseFirestore _firebaseFirestore = locator<FirebaseFirestore>();
 
   // Sign In with email and password
   Future<UserCredential> signIn(String email, String password) async {
@@ -25,17 +25,18 @@ class FirebaseAuthService {
   Future<UserCredential> signUp(
       String name, String email, String password) async {
     try {
-      return await _firebaseAuth.createUserWithEmailAndPassword(
+      var _user = await _firebaseAuth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
-      // User user = _usercredential.user;
-      // await _firebaseFirestore
-      //     .collection('Users')
-      //     .doc(user.email)
-      //     .set({"Name": name, 'Phone no.': phone, 'Enrollment no.': enrollment})
-      //     .then((value) => print('User Created : ${user.email}'))
-      //     .catchError((e) => print('Database Error!'));
+
+      await _firebaseFirestore
+          .collection('Users')
+          .doc(_user.user!.email)
+          .set({'name': name, 'phone': 'Phone', 'enrollment': 'Enrollment'})
+          .then((value) => print('User Created : ${_user.user!.email}'))
+          .catchError((e) => print('Database Error!'));
+      return _user;
     } on FirebaseAuthException catch (e) {
       throw signUpErrorCodes[e.code] ?? 'Firebase ${e.code} Error Occured!';
     } catch (e) {
