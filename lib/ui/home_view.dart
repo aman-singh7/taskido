@@ -10,6 +10,7 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
+  TextEditingController searchController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     var h = MediaQuery.of(context).size.height / 360;
