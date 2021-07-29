@@ -22,14 +22,14 @@ GetIt locator = GetIt.instance;
 Future<void> setUpLocator() async {
   var localStorage = await LocalStorageService.getInstance();
   locator.registerSingleton<LocalStorageService>(localStorage);
-  var homeView = HomeViewModel();
-  var baseLandingView = BaseLandingViewmodel();
   var _firebaseAuth = FirebaseAuth.instance;
   locator.registerSingleton<FirebaseAuth>(_firebaseAuth);
-  var _firebaseAuthService = FirebaseAuthService();
-  locator.registerSingleton<FirebaseAuthService>(_firebaseAuthService);
   var _firebaseFirestore = FirebaseFirestore.instance;
   locator.registerSingleton<FirebaseFirestore>(_firebaseFirestore);
+  var _firebaseAuthService = FirebaseAuthService();
+  locator.registerSingleton<FirebaseAuthService>(_firebaseAuthService);
+  var homeView = HomeViewModel();
+  var baseLandingView = BaseLandingViewmodel();
   locator.registerSingleton<HomeViewModel>(homeView);
   locator.registerSingleton<BaseLandingViewmodel>(baseLandingView);
   var groupService = GroupService();
