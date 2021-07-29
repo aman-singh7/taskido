@@ -5,6 +5,7 @@ import 'package:task_dot_do/services/dialog_service.dart';
 import 'package:task_dot_do/services/firebase_auth_service.dart';
 import 'package:task_dot_do/services/group_service.dart';
 import 'package:task_dot_do/services/local_storage_service.dart';
+import 'package:task_dot_do/services/particular_group_service.dart';
 import 'package:task_dot_do/services/profile_service.dart';
 import 'package:task_dot_do/viewmodels/add_task_viewmodel.dart';
 import 'package:task_dot_do/viewmodels/base_landing_viewmodel.dart';
@@ -38,6 +39,8 @@ Future<void> setUpLocator() async {
   locator.registerSingleton<ProfileService>(profileService);
   var groupViewModel = GroupsViewModel();
   locator.registerSingleton<GroupsViewModel>(groupViewModel);
+  var particularGroupService = ParticularGroupService();
+  locator.registerSingleton<ParticularGroupService>(particularGroupService);
 
   locator.registerFactory<DialogService>(() => DialogService());
   //locator.registerFactory<BaseLandingViewmodel>(() => BaseLandingViewmodel());

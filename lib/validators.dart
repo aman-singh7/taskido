@@ -44,7 +44,7 @@ class Validator {
     }
   }
 
-  static String? validateTitle(String? val) {
+  static String? validateTextField(String? val) {
     if (val == null || val.isEmpty) {
       return 'Required Field';
     }
