@@ -8,7 +8,6 @@ import 'package:task_dot_do/ui/base_landing_view.dart';
 import 'package:task_dot_do/ui/register_view.dart';
 import 'package:task_dot_do/validators.dart';
 import 'package:task_dot_do/viewmodels/base_viewmodel.dart';
-import 'package:task_dot_do/services/dialog_service.dart';
 
 class LoginViewModel extends BaseViewModel {
   late final TextEditingController _emailController;
@@ -34,8 +33,8 @@ class LoginViewModel extends BaseViewModel {
       forgotPasswordEmailController;
 
   void forgetPassword() async {
-    final _dialogService = locator<DialogService>();
-    await _dialogService.showForgetPasswordDialog();
+    //final _dialogService = locator<DialogService>();
+    //await _dialogService.showForgetPasswordDialog();
     // if (email == null) {
     //   print('null');
     // } else {

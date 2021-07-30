@@ -8,7 +8,11 @@ class StartUpView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseView<StartUpViewModel>(
-      builder: (context, model, child) => Container(),
+      builder: (context, model, child) => Scaffold(
+        body: Container(
+          child: Center(child: Image.asset('assets/images/spash_screen.png')),
+        ),
+      ),
       onModelReady: (model) => model.onModelReady(),
     );
   }

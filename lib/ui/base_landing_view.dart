@@ -1,12 +1,10 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:get/get.dart';
 import 'package:task_dot_do/app_theme.dart';
 import 'package:task_dot_do/enums/nav_bar_items.dart';
 import 'package:task_dot_do/locator.dart';
 import 'package:task_dot_do/services/firebase_auth_service.dart';
 import 'package:task_dot_do/services/local_notification_service.dart';
 import 'package:task_dot_do/ui/base_view.dart';
-import 'package:task_dot_do/ui/settings_view.dart';
 import 'package:task_dot_do/viewmodels/base_landing_viewmodel.dart';
 import 'package:flutter/material.dart';
 
@@ -84,7 +82,7 @@ class _BaseLandingViewState extends State<BaseLandingView> {
           };
           break;
         case 3:
-          function = () => Get.toNamed(SettingView.id);
+          function = () => {};
       }
       return function;
     }

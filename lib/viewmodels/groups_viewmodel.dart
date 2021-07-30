@@ -31,41 +31,99 @@ class GroupsViewModel extends BaseViewModel {
         var result = await groupService.createGroup(input);
         if (result != null) {
           Get.snackbar(
-            'Create Group',
-            'Group Created Successfully!!',
-            backgroundColor: Colors.blueAccent,
+            '',
+            '',
+            titleText: Text(
+              'Create Group',
+              style:
+                  TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
+            ),
+            messageText: Text(
+              'Created Group Successfully',
+              style: TextStyle(color: Colors.white),
+            ),
+            backgroundColor: Color(0xcc333333),
+            snackStyle: SnackStyle.FLOATING,
+            margin: EdgeInsets.all(20),
+            duration: Duration(seconds: 2),
           );
           _groups.add(result);
+        } else {
+          Get.snackbar(
+            '',
+            '',
+            titleText: Text(
+              'Create Group',
+              style: TextStyle(color: Colors.white),
+            ),
+            messageText: Text(
+              'Error occured while creating group',
+              style: TextStyle(color: Colors.white),
+            ),
+            backgroundColor: Color(0xcc333333),
+            snackStyle: SnackStyle.FLOATING,
+            margin: EdgeInsets.all(20),
+            duration: Duration(seconds: 2),
+          );
         }
-        Get.snackbar(
-          'Create Group',
-          'Error occured while creating group',
-          backgroundColor: Colors.blueAccent,
-        );
         break;
       case 'Join':
         for (var group in _groups) {
           if (group.id == input) {
             Get.snackbar(
-              'Join Group',
-              'Already Joined!!',
-              backgroundColor: Colors.blueAccent,
+              '',
+              '',
+              titleText: Text(
+                'Join Group',
+                style:
+                    TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
+              ),
+              messageText: Text(
+                'Already Joined!!',
+                style: TextStyle(color: Colors.white),
+              ),
+              backgroundColor: Color(0xcc333333),
+              snackStyle: SnackStyle.FLOATING,
+              margin: EdgeInsets.all(20),
+              duration: Duration(seconds: 2),
             );
           }
         }
         var result = await groupService.joinGroup(input);
         if (result != null) {
           Get.snackbar(
-            'Join Group',
-            'Joined Successfully',
-            backgroundColor: Colors.blueAccent,
+            '',
+            '',
+            titleText: Text(
+              'Join Group',
+              style: TextStyle(color: Colors.white),
+            ),
+            messageText: Text(
+              'Joined Successfully',
+              style: TextStyle(color: Colors.white),
+            ),
+            backgroundColor: Color(0xcc333333),
+            snackStyle: SnackStyle.FLOATING,
+            margin: EdgeInsets.all(20),
+            duration: Duration(seconds: 2),
           );
           _groups.add(result);
         } else {
           Get.snackbar(
-            'Join Group',
-            'Error occured while joining the group\nPlease recheck your connectivity and GroupId',
-            backgroundColor: Colors.blueAccent,
+            '',
+            '',
+            titleText: Text(
+              'Join Group',
+              style: TextStyle(color: Colors.white),
+            ),
+            messageText: Text(
+              'Error occured while joining the group\nPlease recheck your connectivity and GroupId',
+              style: TextStyle(color: Colors.white),
+            ),
+            backgroundColor: Color(0xcc333333),
+            snackStyle: SnackStyle.FLOATING,
+            margin: EdgeInsets.all(20),
+            duration: Duration(seconds: 2),
           );
         }
         break;
