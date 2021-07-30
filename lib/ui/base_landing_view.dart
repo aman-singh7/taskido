@@ -1,6 +1,8 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get/get.dart';
 import 'package:task_dot_do/app_theme.dart';
 import 'package:task_dot_do/enums/nav_bar_items.dart';
+import 'package:task_dot_do/services/local_notification_service.dart';
 import 'package:task_dot_do/ui/base_view.dart';
 import 'package:task_dot_do/ui/settings_view.dart';
 import 'package:task_dot_do/viewmodels/base_landing_viewmodel.dart';
@@ -14,6 +16,29 @@ class BaseLandingView extends StatefulWidget {
 }
 
 class _BaseLandingViewState extends State<BaseLandingView> {
+  @override
+  void initState() {
+    super.initState();
+
+    FirebaseMessaging.instance.getInitialMessage();
+
+    //Foreground
+    FirebaseMessaging.onMessage.listen((message) {
+      if (message.notification != null) {
+        print(message.notification!.body);
+        print(message.notification!.title);
+      }
+
+      LocalNotificationservice.display(message);
+    });
+
+    //App is in background but opened
+    FirebaseMessaging.onMessageOpenedApp.listen((message) {
+      final routeFromMessage = message.data['routes'];
+      print(routeFromMessage);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     var h = MediaQuery.of(context).size.height / 360;

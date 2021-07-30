@@ -1,16 +1,24 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:task_dot_do/app_theme.dart';
 import 'package:task_dot_do/locator.dart';
 import 'package:task_dot_do/router.dart';
+import 'package:task_dot_do/services/local_notification_service.dart';
 import 'package:task_dot_do/ui/startup_view.dart';
+
+Future<void> backgroundHandler(RemoteMessage message) async {
+  print(message.data.toString());
+  print(message.notification!.title);
+}
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  LocalNotificationservice.initialize();
   await Firebase.initializeApp();
   await setUpLocator();
-
+  FirebaseMessaging.onBackgroundMessage(backgroundHandler);
   runApp(MyApp());
 }
 
