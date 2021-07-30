@@ -1,9 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:task_dot_do/locator.dart';
 import 'package:task_dot_do/models/participant_model.dart';
+import 'package:task_dot_do/services/push_notification.dart';
 
 class ParticularGroupService {
   final _firestore = locator<FirebaseFirestore>();
+  final _pushNotification = locator<PushNotification>();
 
   Stream<QuerySnapshot> getNotification(String id) {
     return _firestore
@@ -49,8 +51,17 @@ class ParticularGroupService {
     return res;
   }
 
+  Future<String?> getToken(String email) async {
+    try {
+      var response = await _firestore.collection('Users').doc(email).get();
+      return response['token'];
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
   Future<String?> createNotification(String title, String description,
-      DateTime time, String groupId, bool isImportant) async {
+      DateTime time, String groupId, String groupName, bool isImportant) async {
     try {
       await _firestore
           .collection('Groups')
@@ -62,6 +73,13 @@ class ParticularGroupService {
         'isImportant': isImportant,
         'time': Timestamp.fromDate(time),
       });
+      var participants = await getParticipants(groupId);
+      var tokens = <String>[];
+      for (var participant in participants) {
+        var res = await getToken(participant.email);
+        if (res != null) tokens.add(res);
+      }
+      await _pushNotification.sendFCM(tokens, groupName, title);
     } catch (e) {
       print(e.toString());
     }

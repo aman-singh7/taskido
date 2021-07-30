@@ -51,6 +51,8 @@ class HomeViewModel extends BaseViewModel {
         break;
     }
 
+    _activeDayTab += prev;
+
     for (var i = 1; i <= prev; i++) {
       tempdate = date.subtract(Duration(days: i));
       tempday = DateFormat('EEEE').format(tempdate);
@@ -129,8 +131,8 @@ class HomeViewModel extends BaseViewModel {
     _dates = [];
     _dates.add(
         DayDate(date: date.day, month: date.month, day: day, year: date.year));
-    buildDates(date);
     _activeDayTab = 0;
+    buildDates(date);
     //buildTask();
   }
 

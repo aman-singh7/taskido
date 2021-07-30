@@ -8,6 +8,7 @@ import 'package:task_dot_do/services/group_service.dart';
 import 'package:task_dot_do/services/local_storage_service.dart';
 import 'package:task_dot_do/services/particular_group_service.dart';
 import 'package:task_dot_do/services/profile_service.dart';
+import 'package:task_dot_do/services/push_notification.dart';
 import 'package:task_dot_do/services/routine_service.dart';
 import 'package:task_dot_do/viewmodels/add_task_viewmodel.dart';
 import 'package:task_dot_do/viewmodels/base_landing_viewmodel.dart';
@@ -44,6 +45,8 @@ Future<void> setUpLocator() async {
   locator.registerSingleton<GroupService>(groupService);
   var profileService = ProfileService();
   locator.registerSingleton<ProfileService>(profileService);
+  var pushNotification = PushNotification();
+  locator.registerSingleton<PushNotification>(pushNotification);
   var groupViewModel = GroupsViewModel();
   locator.registerSingleton<GroupsViewModel>(groupViewModel);
   var particularGroupService = ParticularGroupService();
