@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
-import 'package:task_dot_do/services/database_service.dart';
+import 'package:task_dot_do/services/databases_service.dart';
 import 'package:task_dot_do/services/dialog_service.dart';
 import 'package:task_dot_do/services/firebase_auth_service.dart';
 import 'package:task_dot_do/services/group_service.dart';
