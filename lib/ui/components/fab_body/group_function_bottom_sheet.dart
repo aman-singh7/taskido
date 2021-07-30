@@ -50,10 +50,10 @@ class GroupFunctionBottomSheet extends StatelessWidget {
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 border: Border.all(color: Colors.black),
-                image: DecorationImage(
-                  image: AssetImage('assets/images/$iconName'),
-                  fit: BoxFit.contain,
-                ),
+              ),
+              child: Image.asset(
+                'assets/images/$iconName',
+                fit: BoxFit.contain,
               ),
             ),
             Text(title),
@@ -79,7 +79,7 @@ class GroupFunctionBottomSheet extends StatelessWidget {
                   'Options',
                   style: TextStyle(
                     fontSize: 22,
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w400,
                   ),
                 ),
               ],

@@ -29,12 +29,12 @@ class BaseLandingViewmodel extends BaseViewModel {
     switch (item) {
       case NavBarItem.HOME:
         _body = HomeView();
-        _fabBody = AddTaksDialog();
+        _fabBody = AddTaskDialog('Add Task');
         _activeTab = 0;
         break;
       case NavBarItem.CALENDER:
         _body = CalenderView();
-        _fabBody = AddTaksDialog();
+        _fabBody = AddTaskDialog('Add Task');
         _activeTab = 1;
         break;
       case NavBarItem.GROUPS:

@@ -12,7 +12,7 @@ class AddTaskViewModel extends BaseViewModel {
   TextEditingController get titleController => _titleController;
   TextEditingController get descriptionController => _descriptionController;
   DateTime get dateTime => _dateTime;
-  String? Function(String?) get titleValidator => Validator.validateTitle;
+  String? Function(String?) get tfValidator => Validator.validateTextField;
 
   void onChanged(bool val) {
     notifyMe = val;

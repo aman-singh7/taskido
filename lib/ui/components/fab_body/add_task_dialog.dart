@@ -1,20 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:task_dot_do/app_theme.dart';
 import 'package:task_dot_do/locator.dart';
 import 'package:task_dot_do/models/task_model.dart';
+import 'package:task_dot_do/services/particular_group_service.dart';
 import 'package:task_dot_do/ui/base_view.dart';
 import 'package:task_dot_do/ui/components/custom_text_field.dart';
 import 'package:task_dot_do/viewmodels/add_task_viewmodel.dart';
 import 'package:task_dot_do/viewmodels/home_viewmodel.dart';
 
-class AddTaksDialog extends StatelessWidget {
+class AddTaskDialog extends StatelessWidget {
+  AddTaskDialog(this.title, {this.groupId});
+  final String title;
+  final dynamic groupId;
   @override
   Widget build(BuildContext context) {
     var h = MediaQuery.of(context).size.height;
     var w = MediaQuery.of(context).size.width;
     final _key = GlobalKey<FormState>();
     final homemodel = locator<HomeViewModel>();
+    final groupService = locator<ParticularGroupService>();
 
     void pickDate(AddTaskViewModel model) async {
       var date = await showDatePicker(
@@ -48,6 +54,7 @@ class AddTaksDialog extends StatelessWidget {
       onModelDestroy: (model) => model.onModelDestroy(),
       builder: (context, model, child) => Container(
         height: MediaQuery.of(context).size.height / 1.5,
+        margin: const EdgeInsets.all(15),
         child: ListView(
           shrinkWrap: true,
           children: [
@@ -55,7 +62,7 @@ class AddTaksDialog extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: Text(
-                  'Add Task',
+                  title,
                   style: AppTheme.headline3,
                 ),
               ),
@@ -68,14 +75,14 @@ class AddTaksDialog extends StatelessWidget {
               key: _key,
               child: Container(
                 padding: const EdgeInsets.all(12.0),
-                height: h / 9.5,
+                height: h / 9,
                 width: w / 4,
                 child: CustomTextField(
                   model.titleController,
                   'Title',
                   'Title of Task',
                   Icons.title,
-                  validator: model.titleValidator,
+                  validator: model.tfValidator,
                 ),
               ),
             ),
@@ -88,6 +95,7 @@ class AddTaksDialog extends StatelessWidget {
                 'Description of Task',
                 Icons.description,
                 maxlines: 2,
+                validator: model.tfValidator,
               ),
             ),
             ListTile(
@@ -110,7 +118,8 @@ class AddTaksDialog extends StatelessWidget {
               value: model.notifyMe,
               onChanged: (val) => model.onChanged(val!),
               controlAffinity: ListTileControlAffinity.leading,
-              title: Text('Notify Me'),
+              title:
+                  title == 'Add Task' ? Text('Notify Me') : Text('Important'),
             ),
             Container(
               padding: const EdgeInsets.all(8.0),
@@ -118,18 +127,28 @@ class AddTaksDialog extends StatelessWidget {
               child: ElevatedButton(
                 onPressed: () {
                   if (_key.currentState!.validate()) {
-                    Navigator.of(context).pop();
-                    var task = Task(
-                      title: model.titleController.text.trim(),
-                      notifyMe: model.notifyMe,
-                      isCompleted: false,
-                      from: DateFormat.jm().format(model.dateTime),
-                      description: model.descriptionController.text.trim(),
-                    );
-                    homemodel.addTask(task);
+                    Get.back();
+                    if (title == 'Add Task') {
+                      var task = Task(
+                        title: model.titleController.text.trim(),
+                        notifyMe: model.notifyMe,
+                        isCompleted: false,
+                        from: DateFormat.jm().format(model.dateTime),
+                        description: model.descriptionController.text.trim(),
+                      );
+                      homemodel.addTask(task);
+                    } else {
+                      groupService.createNotification(
+                        model.titleController.text.trim(),
+                        model.descriptionController.text.trim(),
+                        model.dateTime,
+                        groupId as String,
+                        model.notifyMe,
+                      );
+                    }
                   }
                 },
-                child: Text('Add Task'),
+                child: Text(title),
               ),
             ),
           ],

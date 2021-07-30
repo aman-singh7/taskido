@@ -46,6 +46,7 @@ class GroupsView extends StatelessWidget {
 
     return BaseView<GroupsViewModel>(
       onModelReady: (model) => model.onModelReady(),
+      onModelDestroy: (model) => model.onModelDestroy(),
       builder: (context, model, child) => Container(
         child: Container(
           height: h / 1.1,

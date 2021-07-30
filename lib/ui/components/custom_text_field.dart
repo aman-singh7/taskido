@@ -34,7 +34,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
       style: TextStyle(fontSize: 18.0),
       decoration: InputDecoration(
           filled: true,
-          fillColor: Colors.grey[200],
+          fillColor: Colors.grey[100],
           focusColor: Colors.white,
           labelText: widget._label,
           hintText: widget._hint,
@@ -48,7 +48,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
             borderRadius: BorderRadius.all(Radius.circular(10.0)),
             borderSide: BorderSide(color: Colors.grey),
           ),
-          prefixIcon: Icon(widget._prefix),
+          prefixIcon: widget._prefix != null ? Icon(widget._prefix) : null,
           suffixIcon: widget._suffix),
     );
   }

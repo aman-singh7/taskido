@@ -80,4 +80,9 @@ class GroupsViewModel extends BaseViewModel {
     isLoading = true;
     fetchGroups();
   }
+
+  void onModelDestroy() {
+    _searchController.dispose();
+    _nameController.dispose();
+  }
 }

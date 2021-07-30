@@ -41,6 +41,7 @@ dependencies:
   table_calendar: ^3.0.1
   sliding_up_panel: ^2.0.0+1
   flutter_linkify: ^5.0.2
+  url_launcher: ^6.0.9
 
 dev_dependencies:
   flutter_test:
