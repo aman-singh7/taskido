@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/rendering.dart';
+import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:task_dot_do/locator.dart';
 import 'package:task_dot_do/models/task_model.dart';
@@ -18,6 +19,9 @@ class CalenderViewModel extends BaseViewModel {
   DateTime get focussedDay => _focussedDay;
   DateTime get selectedDay => _selectedDay;
   List<Task> get tasksOnSelectedDay => getTasksForDay(selectedDay);
+
+  Stream<List<Task>> get taskStreamForSelectedDate =>
+      _taskStreamForSelectedDate();
 
   set focussedDay(DateTime focussedDay) {
     _focussedDay = focussedDay;
@@ -58,5 +62,12 @@ class CalenderViewModel extends BaseViewModel {
 
   void onModelDestroy() {
     scrollController.dispose();
+  }
+
+  Stream<List<Task>> _taskStreamForSelectedDate() {
+    print(selectedDay);
+    print(DateFormat('dd-MM-yyyy').format(selectedDay));
+    return databaseService
+        .getTasksforDate(DateFormat('dd-MM-yyyy').format(selectedDay));
   }
 }

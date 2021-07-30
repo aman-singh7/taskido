@@ -7,6 +7,9 @@ class FirebaseAuthService {
   final FirebaseAuth _firebaseAuth = locator<FirebaseAuth>();
   final FirebaseFirestore _firebaseFirestore = locator<FirebaseFirestore>();
 
+  User get currentUser => _firebaseAuth.currentUser!;
+  //final FirebaseFirestore _firebaseFirestore = locator<FirebaseFirestore>();
+
   // Sign In with email and password
   Future<UserCredential> signIn(String email, String password) async {
     try {

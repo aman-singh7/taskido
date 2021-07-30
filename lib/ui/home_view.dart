@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:task_dot_do/app_theme.dart';
+import 'package:task_dot_do/models/task_model.dart';
 import 'package:task_dot_do/ui/base_view.dart';
+import 'package:task_dot_do/ui/components/taskCard.dart';
 import 'package:task_dot_do/viewmodels/home_viewmodel.dart';
 
 class HomeView extends StatelessWidget {
@@ -64,57 +66,57 @@ class HomeView extends StatelessWidget {
       return result;
     }
 
-    List<Widget> _buildTasks(dynamic model) {
-      var result = <Widget>[], task, tasks = model.tasks;
-      for (var index = 0; index < tasks.length; index++) {
-        task = tasks[index];
-        result.add(
-          Container(
-            padding: const EdgeInsets.only(
-              bottom: 8.0,
-              left: 10,
-              right: 10,
-            ),
-            child: Card(
-              elevation: 4,
-              shadowColor: Colors.lightBlue[100],
-              child: CheckboxListTile(
-                title: Text(
-                  task.title,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                subtitle: Text(task.from),
-                value: task.isCompleted,
-                controlAffinity: ListTileControlAffinity.leading,
-                onChanged: (val) => model.isTaskCompleted(val, index),
-                secondary: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    if (task.notifyMe) ...[
-                      IconButton(
-                        onPressed: () {},
-                        icon: Icon(
-                          Icons.notifications,
-                          //color: Colors.yellow,
-                        ),
-                      ),
-                    ],
-                    IconButton(
-                      onPressed: () => model.deleteTask(index),
-                      icon: Icon(
-                        Icons.delete,
-                        color: Colors.red,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-        );
-      }
-      return result;
-    }
+    // List<Widget> _buildTasks(dynamic model) {
+    //   var result = <Widget>[], task, tasks = model.tasks;
+    //   for (var index = 0; index < tasks.length; index++) {
+    //     task = tasks[index];
+    //     result.add(
+    //       Container(
+    //         padding: const EdgeInsets.only(
+    //           bottom: 8.0,
+    //           left: 10,
+    //           right: 10,
+    //         ),
+    //         child: Card(
+    //           elevation: 4,
+    //           shadowColor: Colors.lightBlue[100],
+    //           child: CheckboxListTile(
+    //             title: Text(
+    //               task.title,
+    //               overflow: TextOverflow.ellipsis,
+    //             ),
+    //             subtitle: Text(task.from),
+    //             value: task.isCompleted,
+    //             controlAffinity: ListTileControlAffinity.leading,
+    //             onChanged: (val) => model.isTaskCompleted(val, index),
+    //             secondary: Row(
+    //               mainAxisSize: MainAxisSize.min,
+    //               children: [
+    //                 if (task.notifyMe) ...[
+    //                   IconButton(
+    //                     onPressed: () {},
+    //                     icon: Icon(
+    //                       Icons.notifications,
+    //                       //color: Colors.yellow,
+    //                     ),
+    //                   ),
+    //                 ],
+    //                 IconButton(
+    //                   onPressed: () => model.deleteTask(index),
+    //                   icon: Icon(
+    //                     Icons.delete,
+    //                     color: Colors.red,
+    //                   ),
+    //                 ),
+    //               ],
+    //             ),
+    //           ),
+    //         ),
+    //       ),
+    //     );
+    //   }
+    //   return result;
+    // }
 
     return BaseView<HomeViewModel>(
       onModelReady: (model) => model.onModelReady(),
@@ -127,7 +129,7 @@ class HomeView extends StatelessWidget {
             fit: BoxFit.fitWidth,
           ),
         ),
-        child: ListView(
+        child: Column(
           children: [
             Padding(
               padding: const EdgeInsets.only(
@@ -167,7 +169,32 @@ class HomeView extends StatelessWidget {
             SizedBox(
               height: h * 10,
             ),
-            ..._buildTasks(model),
+            Expanded(
+              child: StreamBuilder(
+                stream: model.tasksForSelectedDate,
+                builder:
+                    (BuildContext context, AsyncSnapshot<List<Task>> snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(child: CircularProgressIndicator());
+                  }
+                  if (snapshot.hasData && snapshot.data!.isNotEmpty) {
+                    return ListView.builder(
+                      itemCount: snapshot.data!.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return TaskCard(
+                          task: snapshot.data![index],
+                          model: model,
+                          date: model.selectedDate,
+                        );
+                      },
+                    );
+                  }
+                  return Center(
+                    child: Text('Looks like you have no tasks now'),
+                  );
+                },
+              ),
+            )
           ],
         ),
       ),
