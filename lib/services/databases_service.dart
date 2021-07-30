@@ -1,9 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:task_dot_do/locator.dart';
 import 'package:task_dot_do/models/task_model.dart';
+import 'package:task_dot_do/services/firebase_auth_service.dart';
 
 class DatabaseService {
   final FirebaseFirestore _firestore = locator<FirebaseFirestore>();
+  final FirebaseAuthService _firebaseAuthService =
+      locator<FirebaseAuthService>();
+  String get user_email => _firebaseAuthService.currentUser.email!;
 
   ///FireStore Database
   //addUser to db while regisetring
@@ -26,7 +30,7 @@ class DatabaseService {
   Future<String> addTask(String date, Task task) async {
     DocumentReference doc = await _firestore
         .collection('Users')
-        .doc('aman@gmail.com')
+        .doc(user_email)
         .collection('tasks')
         .doc(date)
         .collection('taskList')
@@ -69,7 +73,7 @@ class DatabaseService {
   Future<void> deleteTask(String id, String date) async {
     await _firestore
         .collection('Users')
-        .doc('aman@gmail.com')
+        .doc(user_email)
         .collection('tasks')
         .doc(date)
         .collection('taskList')
@@ -82,7 +86,7 @@ class DatabaseService {
       String id, String date, String field, dynamic newValue) async {
     await _firestore
         .collection('Users')
-        .doc('aman@gmail.com')
+        .doc(user_email)
         .collection('tasks')
         .doc(date)
         .collection('taskList')
@@ -95,7 +99,7 @@ class DatabaseService {
   Stream<QuerySnapshot> _getDates() {
     return _firestore
         .collection('Users')
-        .doc('aman@gmail.com')
+        .doc(user_email)
         .collection('tasks')
         .snapshots();
   }
@@ -103,7 +107,7 @@ class DatabaseService {
   Stream<List<Task>> getTasksforDate(String date) {
     var snapshot = _firestore
         .collection('Users')
-        .doc('aman@gmail.com')
+        .doc(user_email)
         .collection('tasks')
         .doc(date)
         .collection('taskList')
@@ -119,8 +123,7 @@ class DatabaseService {
   }
 
   Stream<Map<String, dynamic>> getTasks() {
-    var snapshot =
-        _firestore.collection('Users').doc('aman@gmail.com').snapshots();
+    var snapshot = _firestore.collection('Users').doc(user_email).snapshots();
     return snapshot.map((doc) => doc.data()!['tasks'] ?? {})
         as Stream<Map<String, dynamic>>;
   }

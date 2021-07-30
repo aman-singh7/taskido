@@ -61,12 +61,13 @@ class GroupsViewModel extends BaseViewModel {
             backgroundColor: Colors.blueAccent,
           );
           _groups.add(result);
+        } else {
+          Get.snackbar(
+            'Join Group',
+            'Error occured while joining the group\nPlease recheck your connectivity and GroupId',
+            backgroundColor: Colors.blueAccent,
+          );
         }
-        Get.snackbar(
-          'Join Group',
-          'Error occured while joining the group\nPlease recheck your connectivity and GroupId',
-          backgroundColor: Colors.blueAccent,
-        );
         break;
     }
     notifyListeners();

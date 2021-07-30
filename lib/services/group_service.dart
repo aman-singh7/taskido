@@ -41,6 +41,24 @@ class GroupService {
       var res = await _firestore.collection('Groups').doc(id).get();
       if (!res.exists) return null;
 
+      await _firestore
+          .collection('Groups')
+          .doc(id)
+          .collection('Participants')
+          .add({
+        'name': _localStorage.displayName,
+        'email': _firebaseauth.currentUser!.email,
+      });
+      await _firestore
+          .collection('Users')
+          .doc(_firebaseauth.currentUser!.email)
+          .collection('Groups')
+          .add({
+        'name': res['name'],
+        'id': id,
+        'isAdmin': false,
+      });
+
       return GroupModel(name: res['name'], id: id, isAdmin: false);
     } catch (e) {
       print(e.toString());
