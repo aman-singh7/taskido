@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:task_dot_do/constants.dart';
+import 'package:task_dot_do/ui/constants/constants.dart';
 
 class LocalStorageService {
   static late LocalStorageService _instance;
