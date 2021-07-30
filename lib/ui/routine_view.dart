@@ -19,7 +19,6 @@ class _RoutineViewState extends State<RoutineView> {
   @override
   Widget build(BuildContext context) {
     var h = MediaQuery.of(context).size.height;
-    var w = MediaQuery.of(context).size.width;
 
     Widget buildExpansionTile(
         Routine routine, RoutineViewModel model, int index) {

@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:task_dot_do/locator.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:task_dot_do/models/group_model.dart';
 import 'package:task_dot_do/models/participant_model.dart';
 import 'package:task_dot_do/services/particular_group_service.dart';
 import 'package:task_dot_do/ui/base_view.dart';
