@@ -1,10 +1,11 @@
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:task_dot_do/locator.dart';
 import 'package:task_dot_do/models/task_model.dart';
-import 'package:task_dot_do/services/Database_service.dart';
+import 'package:task_dot_do/services/database_service.dart';
 import 'package:task_dot_do/services/local_storage_service.dart';
 
 class BaseViewModel extends ChangeNotifier {
@@ -27,5 +28,14 @@ class BaseViewModel extends ChangeNotifier {
 
   List<Task> getTasksForDay(DateTime day) {
     return events[day] ?? [];
+  }
+
+  void upDateTaskCompltedStatus(bool? val, String id, DateTime date) async {
+    await databaseService.upDateTask(
+        id, DateFormat('dd-MM-yyyy').format(date), 'isCompleted', val);
+  }
+
+  void deleteTask(String id, DateTime date) async {
+    await databaseService.deleteTask(id, DateFormat('dd-MM-yyyy').format(date));
   }
 }

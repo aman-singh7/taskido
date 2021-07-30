@@ -5,10 +5,10 @@ import 'package:task_dot_do/app_theme.dart';
 import 'package:task_dot_do/locator.dart';
 import 'package:task_dot_do/models/task_model.dart';
 import 'package:task_dot_do/services/particular_group_service.dart';
+import 'package:task_dot_do/services/database_service.dart';
 import 'package:task_dot_do/ui/base_view.dart';
 import 'package:task_dot_do/ui/components/custom_text_field.dart';
 import 'package:task_dot_do/viewmodels/add_task_viewmodel.dart';
-import 'package:task_dot_do/viewmodels/home_viewmodel.dart';
 
 class AddTaskDialog extends StatelessWidget {
   AddTaskDialog(this.title, {this.groupId});
@@ -19,8 +19,8 @@ class AddTaskDialog extends StatelessWidget {
     var h = MediaQuery.of(context).size.height;
     var w = MediaQuery.of(context).size.width;
     final _key = GlobalKey<FormState>();
-    final homemodel = locator<HomeViewModel>();
     final groupService = locator<ParticularGroupService>();
+    final databaseService = locator<DatabaseService>();
 
     void pickDate(AddTaskViewModel model) async {
       var date = await showDatePicker(
@@ -127,17 +127,22 @@ class AddTaskDialog extends StatelessWidget {
               child: ElevatedButton(
                 onPressed: () {
                   if (_key.currentState!.validate()) {
-                    Get.back();
                     if (title == 'Add Task') {
                       var task = Task(
+                        id: '',
                         title: model.titleController.text.trim(),
                         notifyMe: model.notifyMe,
-                        isCompleted: false,
+                        isCompleted: false, // add task using database service
                         from: DateFormat.jm().format(model.dateTime),
                         description: model.descriptionController.text.trim(),
                       );
-                      homemodel.addTask(task);
+                      databaseService
+                          .addTask(
+                              DateFormat('dd-MM-yyyy').format(model.dateTime),
+                              task)
+                          .then((value) => Navigator.of(context).pop());
                     } else {
+                      Get.back();
                       groupService.createNotification(
                         model.titleController.text.trim(),
                         model.descriptionController.text.trim(),

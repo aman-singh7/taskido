@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:task_dot_do/app_theme.dart';
+import 'package:task_dot_do/models/task_model.dart';
 import 'package:task_dot_do/ui/base_view.dart';
+import 'package:task_dot_do/ui/components/taskCard.dart';
 import 'package:task_dot_do/viewmodels/calender_viewmodel.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -95,18 +97,30 @@ class _CalenderViewState extends State<CalenderView> {
                     ),
                   ),
                   Expanded(
-                    child: ListView.builder(
-                      physics: BouncingScrollPhysics(),
-                      controller: model.scrollController,
-                      itemCount: model.tasksOnSelectedDay.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return ListTile(
-                          title: Text(
-                            model
-                                .getTasksForDay(model.selectedDay)[index]
-                                .title,
-                          ),
-                        );
+                    child: StreamBuilder(
+                      stream: model.taskStreamForSelectedDate,
+                      builder: (BuildContext context,
+                          AsyncSnapshot<List<Task>> snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return Center(child: CircularProgressIndicator());
+                        }
+                        if (snapshot.hasData && snapshot.data!.isNotEmpty) {
+                          return ListView.builder(
+                            physics: BouncingScrollPhysics(),
+                            controller: model.scrollController,
+                            itemCount: snapshot.data!.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return TaskCard(
+                                date: model.selectedDay,
+                                task: snapshot.data![index],
+                                model: model,
+                              );
+                            },
+                          );
+                        }
+                        return Center(
+                            child: Text('Looks like there is no assignments'));
                       },
                     ),
                   ),
