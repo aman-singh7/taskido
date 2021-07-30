@@ -79,7 +79,7 @@ class GroupFunctionBottomSheet extends StatelessWidget {
                   'Options',
                   style: TextStyle(
                     fontSize: 22,
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w400,
                   ),
                 ),
               ],

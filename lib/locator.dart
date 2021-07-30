@@ -7,6 +7,7 @@ import 'package:task_dot_do/services/group_service.dart';
 import 'package:task_dot_do/services/local_storage_service.dart';
 import 'package:task_dot_do/services/particular_group_service.dart';
 import 'package:task_dot_do/services/profile_service.dart';
+import 'package:task_dot_do/services/routine_service.dart';
 import 'package:task_dot_do/viewmodels/add_task_viewmodel.dart';
 import 'package:task_dot_do/viewmodels/base_landing_viewmodel.dart';
 import 'package:task_dot_do/viewmodels/calender_viewmodel.dart';
@@ -16,6 +17,9 @@ import 'package:task_dot_do/viewmodels/particular_group_viewmodel.dart';
 import 'package:task_dot_do/viewmodels/profile_viewmodel.dart';
 import 'package:task_dot_do/viewmodels/login_viewmodel.dart';
 import 'package:task_dot_do/viewmodels/register_viewmodel.dart';
+import 'package:task_dot_do/viewmodels/routine_input_dialog_viewmodel.dart';
+import 'package:task_dot_do/viewmodels/routine_nav_dialog_viewmodel.dart';
+import 'package:task_dot_do/viewmodels/routine_viewmodel.dart';
 import 'package:task_dot_do/viewmodels/startup_viewmodel.dart';
 
 GetIt locator = GetIt.instance;
@@ -41,6 +45,8 @@ Future<void> setUpLocator() async {
   locator.registerSingleton<GroupsViewModel>(groupViewModel);
   var particularGroupService = ParticularGroupService();
   locator.registerSingleton<ParticularGroupService>(particularGroupService);
+  var routineService = RoutineService();
+  locator.registerSingleton<RoutineService>(routineService);
 
   locator.registerFactory<DialogService>(() => DialogService());
   //locator.registerFactory<BaseLandingViewmodel>(() => BaseLandingViewmodel());
@@ -54,5 +60,10 @@ Future<void> setUpLocator() async {
   locator.registerFactory<AddTaskViewModel>(() => AddTaskViewModel());
   locator.registerFactory<ParticularGroupViewModel>(
       () => ParticularGroupViewModel());
+  locator.registerFactory<RoutineNavDialogViewModel>(
+      () => RoutineNavDialogViewModel());
+  locator.registerFactory<RoutineViewModel>(() => RoutineViewModel());
+  locator.registerFactory<RoutineInputDialogViewModel>(
+      () => RoutineInputDialogViewModel());
   return;
 }

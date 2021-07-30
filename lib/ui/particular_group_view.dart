@@ -9,12 +9,21 @@ import 'package:task_dot_do/models/participant_model.dart';
 import 'package:task_dot_do/services/particular_group_service.dart';
 import 'package:task_dot_do/ui/base_view.dart';
 import 'package:task_dot_do/ui/components/fab_body/add_task_dialog.dart';
+import 'package:task_dot_do/ui/components/routine_nav_dialog.dart';
 import 'package:task_dot_do/viewmodels/particular_group_viewmodel.dart';
 
-class ParticularGroupView extends StatelessWidget {
+class ParticularGroupView extends StatefulWidget {
   static const id = 'particular_group_view';
-  final argument = Get.arguments as GroupModel;
+
+  @override
+  _ParticularGroupViewState createState() => _ParticularGroupViewState();
+}
+
+class _ParticularGroupViewState extends State<ParticularGroupView> {
+  final argument = Get.arguments;
+
   final particularGroupService = locator<ParticularGroupService>();
+
   @override
   Widget build(BuildContext context) {
     var h = MediaQuery.of(context).size.height;
@@ -33,6 +42,7 @@ class ParticularGroupView extends StatelessWidget {
       return Dialog(
         child: Container(
           width: w / 1.5,
+          margin: const EdgeInsets.all(10),
           child: ListView(
             shrinkWrap: true,
             children: [
@@ -106,7 +116,7 @@ class ParticularGroupView extends StatelessWidget {
     }
 
     return BaseView<ParticularGroupViewModel>(
-      onModelReady: (model) => model.onModelReady(argument.id),
+      onModelReady: (model) => model.onModelReady(argument),
       builder: (context, model, child) {
         return SafeArea(
           child: Scaffold(
@@ -119,7 +129,12 @@ class ParticularGroupView extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) => RoutineNavDialog(model.group),
+                      );
+                    },
                     icon: Icon(Icons.calendar_today),
                   ),
                 ),
@@ -150,11 +165,11 @@ class ParticularGroupView extends StatelessWidget {
                               ),
                               ListTile(
                                 leading: Text('Group Name:'),
-                                title: Text(argument.name),
+                                title: Text(model.group.name),
                               ),
                               ListTile(
                                 leading: Text('Group Id:'),
-                                title: SelectableText(argument.id),
+                                title: SelectableText(model.group.id),
                               ),
                             ],
                           ),
@@ -169,7 +184,8 @@ class ParticularGroupView extends StatelessWidget {
             body: Stack(
               children: [
                 StreamBuilder(
-                  stream: particularGroupService.getNotification(argument.id),
+                  stream:
+                      particularGroupService.getNotification(model.group.id),
                   builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return Center(
@@ -213,7 +229,7 @@ class ParticularGroupView extends StatelessWidget {
                     ),
                   ),
                 ),
-                if (argument.isAdmin) ...[
+                if (model.group.isAdmin) ...[
                   Positioned(
                     bottom: h / 40,
                     right: w / 22,
@@ -230,7 +246,7 @@ class ParticularGroupView extends StatelessWidget {
                               return Dialog(
                                 child: AddTaskDialog(
                                   'Add Notification',
-                                  groupId: argument.id,
+                                  groupId: model.group.id,
                                 ),
                               );
                             },

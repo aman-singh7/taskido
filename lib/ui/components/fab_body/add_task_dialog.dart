@@ -54,6 +54,7 @@ class AddTaskDialog extends StatelessWidget {
       onModelDestroy: (model) => model.onModelDestroy(),
       builder: (context, model, child) => Container(
         height: MediaQuery.of(context).size.height / 1.5,
+        margin: const EdgeInsets.all(15),
         child: ListView(
           shrinkWrap: true,
           children: [
@@ -74,7 +75,7 @@ class AddTaskDialog extends StatelessWidget {
               key: _key,
               child: Container(
                 padding: const EdgeInsets.all(12.0),
-                height: h / 9.5,
+                height: h / 9,
                 width: w / 4,
                 child: CustomTextField(
                   model.titleController,
