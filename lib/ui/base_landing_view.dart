@@ -2,6 +2,8 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get/get.dart';
 import 'package:task_dot_do/app_theme.dart';
 import 'package:task_dot_do/enums/nav_bar_items.dart';
+import 'package:task_dot_do/locator.dart';
+import 'package:task_dot_do/services/firebase_auth_service.dart';
 import 'package:task_dot_do/services/local_notification_service.dart';
 import 'package:task_dot_do/ui/base_view.dart';
 import 'package:task_dot_do/ui/settings_view.dart';
@@ -16,10 +18,22 @@ class BaseLandingView extends StatefulWidget {
 }
 
 class _BaseLandingViewState extends State<BaseLandingView> {
+  final authService = locator<FirebaseAuthService>();
+
+  void token() async {
+    var token = await FirebaseMessaging.instance.getToken();
+    if (token != null) {
+      var response = await authService.setToken(token);
+      response
+          ? print('Token added successfuly')
+          : print('Error occured while adding token');
+    }
+  }
+
   @override
   void initState() {
+    token();
     super.initState();
-
     FirebaseMessaging.instance.getInitialMessage();
 
     //Foreground

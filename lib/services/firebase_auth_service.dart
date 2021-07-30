@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:task_dot_do/constants.dart';
+import 'package:task_dot_do/ui/constants/constants.dart';
 import 'package:task_dot_do/locator.dart';
 
 class FirebaseAuthService {
@@ -62,6 +62,25 @@ class FirebaseAuthService {
           'Firebase ${e.code} Error Occured!';
     } catch (e) {
       throw '${e.toString()} Error Occured!';
+    }
+  }
+
+  //set Token
+  Future<bool> setToken(String token) async {
+    try {
+      await _firebaseFirestore
+          .collection('Users')
+          .doc(_firebaseAuth.currentUser!.email)
+          .set(
+        {
+          'token': token,
+        },
+        SetOptions(merge: true),
+      );
+      return true;
+    } catch (e) {
+      print(e.toString());
+      return false;
     }
   }
 }

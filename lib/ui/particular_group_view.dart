@@ -246,6 +246,7 @@ class _ParticularGroupViewState extends State<ParticularGroupView> {
                                 child: AddTaskDialog(
                                   'Add Notification',
                                   groupId: model.group.id,
+                                  groupName: model.group.name,
                                 ),
                               );
                             },

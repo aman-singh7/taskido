@@ -11,9 +11,10 @@ import 'package:task_dot_do/ui/components/custom_text_field.dart';
 import 'package:task_dot_do/viewmodels/add_task_viewmodel.dart';
 
 class AddTaskDialog extends StatelessWidget {
-  AddTaskDialog(this.title, {this.groupId});
+  AddTaskDialog(this.title, {this.groupId, this.groupName});
   final String title;
   final dynamic groupId;
+  final dynamic groupName;
   @override
   Widget build(BuildContext context) {
     var h = MediaQuery.of(context).size.height;
@@ -148,6 +149,7 @@ class AddTaskDialog extends StatelessWidget {
                         model.descriptionController.text.trim(),
                         model.dateTime,
                         groupId as String,
+                        groupName as String,
                         model.notifyMe,
                       );
                     }

@@ -47,3 +47,6 @@ app.*.map.json
 
 # google service file
 **/app/google-services.json
+
+# server token key
+lib/ui/constants/server_key.dart

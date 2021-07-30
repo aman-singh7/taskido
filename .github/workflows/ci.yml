@@ -6,6 +6,7 @@ on: [push, pull_request]
 
 env: 
   FIREBASE_SECRET : ${{ secrets.FIREBASE_SECRET }}
+  SERVER_KEY : ${{ secrets.SERVER_KEY }}
 
 jobs:
   # This workflow contains a single job called "build"
@@ -21,6 +22,7 @@ jobs:
         with:
           channel: "stable"
       - run: echo $FIREBASE_SECRET > android/app/google-services.json
+      - run: echo $SERVER_KEY > lib/ui/constants/server_key.dart
       - run: flutter pub get
       - run: flutter format --set-exit-if-changed .
       - run: flutter analyze .
